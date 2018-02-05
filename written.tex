@@ -1,0 +1,56 @@
+\documentclass[oneside,letterpaper]{memoir}
+
+\usepackage[utf8]{inputenc}
+
+\setlength{\parindent}{0pt}
+\usepackage{listings}
+\usepackage{geometry}               		
+\geometry{letterpaper}                   	
+\usepackage{graphicx}				
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{commath}
+\usepackage{physics}
+\usepackage[utf8]{inputenc}
+\usepackage{amsthm}
+\usepackage[english]{babel}
+
+\usepackage{blkarray}
+
+\usepackage{float}
+
+\newtheorem{proposition}{Proposition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{remark}{Remark}
+\newtheorem{example}{Example}
+
+\DeclareMathOperator{\ran}{\text{ran }} %% Needed in Aug12_2016
+\DeclareMathOperator{\im}{\text{im }}
+\DeclareMathOperator{\lrarrow}{\leftrightarrow}
+
+
+\title{CPSC 599 - Haptics - Assignment ?}
+\date{Winter 2018}
+\author{Scott Saunders - 10163541}
+
+\begin{document}
+\maketitle
+\begin{enumerate}
+\item What force field functions did you use to create the shapes in Parts I and II? Briefly describe how or why you chose these functions. \\
+I chose a simple totalRadius-vectorLength as the distance-based scalar for force fields, where the vector is the cursor position minus the object center. By making the final force the normalized vector multiplied by the distance, this allows a simple hooks-law implementation of a sphere. (It is also multiplied by a constant, to make the force more noticeable)\\
+For the square-force field, I first find out if the position of the cursor is inside the cube by calculating a vector of cursorPos - boxPos, and verifying each component of the vector is less than the side length. I then take the largest component of the vector, and subtract it from the side-length of the cube, and use that as my resulting vector (negating the side length, as required for the opposite side of the cube). \\
+Furthermore, due to the simplicity of the sphere-collision system, it is remarkably easy to add-in magnetism, by simply squaring the distance scalar.\\ 
+To accomplish cylindrical collision and magnetism, I simply took the functions from the sphere, and remove the component along the axis the cylinder aligns too.\\
+Note: Both the box and cylinder would need a scene-transformation to allow rotations as they are, and the cylinder is currently always infinitely long.
+\item In Part I, observe what happens when you try to move the device between the sphere and the box, and comment on what you feel. Is this effect desirable? \\
+One is able to slide between the sphere and the cube, putting the cursor into the cube. It's not particularly desirable.
+\item When animating your objects in Part III, is it better to update their properties (e.g. position) within the graphics update function, updateGraphics(), or the loop within the haptics update function, updateHaptics()? What would be the effects or consequences if you did your animation update in the other function?) \\
+I choose to update most objects in haptics, as otherwise they would have a time delay due to the lower graphics refresh rate. This would appear as some level of haptic-aliasing. However, I discovered that for boxes, they also have to be updated in the graphics-update, as they otherwise seem to flicker (due to possibly invalid positions being written in the haptic thread at the same time). (Doesn't seem to effect sphere's though, and if the box doesn't move there is also no issue.) - So there can be issues involved doing it both ways, but to prevent haptic-aliasing\\
+If one was to update animation within the haptics update system, there would be excessive frames rendered without need, possibly each taking longer than 1/1000th of a second - Causing the haptic update loop to fall behind it's ideal processing rate of 1000hz. \\
+\end{enumerate}
+\end{document}
