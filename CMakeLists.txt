@@ -111,7 +111,7 @@ if (${CMAKE_SYSTEM_NAME} MATCHES Windows)
 elseif (${CMAKE_SYSTEM_NAME} MATCHES Linux)
 
   add_definitions (-DLINUX)
-  set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native -Wno-deprecated -std=c++0x")
+  set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native -Wno-deprecated -std=c++0x -Wno-ignored-attributes")
 
 # Mac OS X global build options
 elseif (${CMAKE_SYSTEM_NAME} MATCHES Darwin)
