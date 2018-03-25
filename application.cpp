@@ -8,6 +8,7 @@
 #include "chai3d.h"
 //------------------------------------------------------------------------------
 #include <GLFW/glfw3.h>
+#include "scene.h"
 //------------------------------------------------------------------------------
 using namespace chai3d;
 using namespace std;
@@ -306,27 +307,9 @@ int main(int argc, char* argv[])
     labelRates = new cLabel(font);
     labelRates->m_fontColor.setWhite();
     camera->m_frontLayer->addChild(labelRates);
-// /*
 
-    //Temp: Loading up monkey
-    obj = new cMultiMesh();
-    obj->loadFromFile("key.3ds");
-    obj->createAABBCollisionDetector(0.1);
-    obj->computeBTN();
-// /*
-    cMesh* mesh = obj->getMesh(0);
-//    MyMaterialPtr MAT = MyMaterial::create(); //Needed to not lose it, and not have to re-cast
-//    mesh->m_material = MAT;
-    mesh->m_material =  cMaterial::create();
-    mesh->m_material->setWhite();
-    mesh->m_material->setUseHapticShading(true);
-    obj->setStiffness(2000.0, true);
-    
-//    obj->rotateAboutGlobalAxisDeg(chai3d::cVector3d(0,0,1),180);
-//    obj->scale(0.01);    
 
-    world->addChild(obj);
-//*/
+    proj::scene::init();
 
     //--------------------------------------------------------------------------
     // START SIMULATION
