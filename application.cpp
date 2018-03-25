@@ -226,7 +226,7 @@ int main(int argc, char* argv[])
     world->addChild(camera);
 
     // position and orient the camera
-    camera->set( cVector3d (0.5, 0.0, 0.0),    // camera position (eye)
+    camera->set( cVector3d (0.5, 0.0, 0.2),    // camera position (eye)
                  cVector3d (0.0, 0.0, 0.0),    // look at position (target)
                  cVector3d (0.0, 0.0, 1.0));   // direction of the (up) vector
 
@@ -310,7 +310,7 @@ int main(int argc, char* argv[])
 
     //Temp: Loading up monkey
     obj = new cMultiMesh();
-    obj->loadFromFile("monkey.obj");
+    obj->loadFromFile("key.3ds");
     obj->createAABBCollisionDetector(0.1);
     obj->computeBTN();
 // /*
@@ -322,8 +322,9 @@ int main(int argc, char* argv[])
     mesh->m_material->setUseHapticShading(true);
     obj->setStiffness(2000.0, true);
     
-    obj->rotateAboutGlobalAxisDeg(chai3d::cVector3d(0,0,1),180);
-    
+//    obj->rotateAboutGlobalAxisDeg(chai3d::cVector3d(0,0,1),180);
+//    obj->scale(0.01);    
+
     world->addChild(obj);
 //*/
 
