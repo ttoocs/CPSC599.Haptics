@@ -1,6 +1,6 @@
 //==============================================================================
 /*
-    \author    Your Name
+    \author    Scott Saunders
 */
 //==============================================================================
 
@@ -9,6 +9,7 @@
 //------------------------------------------------------------------------------
 #include <GLFW/glfw3.h>
 #include "scene.h"
+#include "input.h"
 //------------------------------------------------------------------------------
 using namespace chai3d;
 using namespace std;
@@ -100,7 +101,7 @@ void windowSizeCallback(GLFWwindow* a_window, int a_width, int a_height);
 void errorCallback(int error, const char* a_description);
 
 // callback when a key is pressed
-void keyCallback(GLFWwindow* a_window, int a_key, int a_scancode, int a_action, int a_mods);
+//void keyCallback(GLFWwindow* a_window, int a_key, int a_scancode, int a_action, int a_mods);
 
 // this function renders the scene
 void updateGraphics(void);
@@ -126,16 +127,7 @@ int main(int argc, char* argv[])
     // INITIALIZATION
     //--------------------------------------------------------------------------
 
-    cout << endl;
-    cout << "-----------------------------------" << endl;
-    cout << "CHAI3D" << endl;
-    cout << "-----------------------------------" << endl << endl << endl;
-    cout << "Keyboard Options:" << endl << endl;
-    cout << "[f] - Enable/Disable full screen mode" << endl;
-    cout << "[m] - Enable/Disable vertical mirroring" << endl;
-    cout << "[q] - Exit application" << endl;
-    cout << endl << endl;
-
+    proj::inputHelp();
 
     //--------------------------------------------------------------------------
     // OPENGL - WINDOW DISPLAY
@@ -190,7 +182,7 @@ int main(int argc, char* argv[])
     glfwSetWindowPos(window, x, y);
 
     // set key callback
-    glfwSetKeyCallback(window, keyCallback);
+    glfwSetKeyCallback(window, proj::keyCallback);
 
     // set resize callback
     glfwSetWindowSizeCallback(window, windowSizeCallback);
@@ -375,58 +367,7 @@ void errorCallback(int a_error, const char* a_description)
     cout << "Error: " << a_description << endl;
 }
 
-//------------------------------------------------------------------------------
 
-void keyCallback(GLFWwindow* a_window, int a_key, int a_scancode, int a_action, int a_mods)
-{
-    // filter calls that only include a key press
-    if (a_action != GLFW_PRESS)
-    {
-        return;
-    }
-
-    // option - exit
-    else if ((a_key == GLFW_KEY_ESCAPE) || (a_key == GLFW_KEY_Q))
-    {
-        glfwSetWindowShouldClose(a_window, GLFW_TRUE);
-    }
-
-    // option - toggle fullscreen
-    else if (a_key == GLFW_KEY_F)
-    {
-        // toggle state variable
-        fullscreen = !fullscreen;
-
-        // get handle to monitor
-        GLFWmonitor* monitor = glfwGetPrimaryMonitor();
-
-        // get information about monitor
-        const GLFWvidmode* mode = glfwGetVideoMode(monitor);
-
-        // set fullscreen or window mode
-        if (fullscreen)
-        {
-            glfwSetWindowMonitor(window, monitor, 0, 0, mode->width, mode->height, mode->refreshRate);
-            glfwSwapInterval(swapInterval);
-        }
-        else
-        {
-            int w = 0.8 * mode->height;
-            int h = 0.5 * mode->height;
-            int x = 0.5 * (mode->width - w);
-            int y = 0.5 * (mode->height - h);
-            glfwSetWindowMonitor(window, NULL, x, y, w, h, mode->refreshRate);
-            glfwSwapInterval(swapInterval);
-        }
-    }
-
-    // option - toggle vertical mirroring
-    else if (a_key == GLFW_KEY_M)
-    {
-        mirroredDisplay = !mirroredDisplay;
-        camera->setMirrorVertical(mirroredDisplay);
-    }
-}
 
 //------------------------------------------------------------------------------
 

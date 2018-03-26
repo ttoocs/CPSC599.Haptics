@@ -8,6 +8,7 @@ typedef chai3d::cMatrix3d mat3;
 typedef chai3d::cVector3d vec3;
 
 extern chai3d::cWorld* world;
+extern chai3d::cCamera* camera;
 
 namespace proj{
 
