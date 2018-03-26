@@ -43,8 +43,8 @@ void keyboard::addKeys(){
 void keyboard::addMainBlock(){
 /*
 *
-* topLX=-15.6892
-* topLY=1.3334
+* topLX=-15.6892cm
+* topLY=1.3334cm
 * topLZ=1.5281cm
 *
 * topRX=12.9989cm
