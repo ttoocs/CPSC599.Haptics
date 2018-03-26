@@ -390,6 +390,8 @@ void close(void)
 
 //------------------------------------------------------------------------------
 
+chai3d::cPrecisionClock gclock;
+
 void updateGraphics(void)
 {
     /////////////////////////////////////////////////////////////////////
@@ -402,7 +404,19 @@ void updateGraphics(void)
 
     // update position of label
     labelRates->setLocalPos((int)(0.5 * (width - labelRates->getWidth())), 15);
+      
+    gclock.stop();
+      // read the time increment in seconds
+//      double timeInterval = chai3d::cMin(0.001, gclock.getCurrentTimeSeconds());
+      // restart the simulation clock
+//      gclock.reset();
+    double time = gclock.getCurrentTimeSeconds()*1;
+    gclock.start();
 
+    std::cout << time << std::endl;
+    camera->set( cVector3d (sin(time), cos(time), 0.2),    // camera position (eye)
+                 cVector3d (0.0, 0.0, 0.0),    // look at position (target)
+                 cVector3d (0.0, 0.0, 1.0));   // direction of the (up) vector
 
     /////////////////////////////////////////////////////////////////////
     // RENDER SCENE

@@ -102,17 +102,19 @@ void keyboard::addMainBlock(){
   pos.y(pos.y() -LRStep/2 );
   pos.x(pos.x() -BFStep/2);
   pos.z(pos.z() - UDStep*2);
+
   for (int row=0; row < numRows; row++){
     for(int col=0; col < numCols; col++){
       
       keyboardKey * key = new keyboardKey;
       key->updatePos(pos);
 
+      //TODO: Rotate them the 7.6deg
       pos.y(pos.y() - LRStep);
     }
     pos.y(topL.y() - LRStep/2);
     pos.x(pos.x() - BFStep);
-    pos.z(pos.z() - UDStep);
+    pos.z(pos.z() - UDStep*1.5); //No idea why this need be 1.5
   }
 // */
 }
