@@ -1,4 +1,5 @@
 #include "keyboard.h"
+#include "key.h"
 
 namespace proj{
 
@@ -33,42 +34,87 @@ keyboard::~keyboard(){
 
 
 //ADD KEYS
-keyboard::addKeys(){
+void keyboard::addKeys(){
 
-
+  addMainBlock();
 }
 
 
-keybord::addMainBlock(){
+void keyboard::addMainBlock(){
 /*
-TopLeftX=-20.413
-TopLeftY=3.5895
-TopLeftZ=6.2521
-
-TopRightX=8.2754
-TopRightY=3.5895
-TopRightZ=6.2521
-
-BotLeftX=-20.413
-BotLeftY=-6.2559
-BotLeftZ=3.8236
-
-(all cm)
+*
+* topLX=-15.6892
+* topLY=1.3334
+* topLZ=1.5281cm
+*
+* topRX=12.9989cm
+* topRY=1.3334cm
+* topRZ=1.5281cm
+*
+* botLX=-15.6892cm
+* botLY=-8.5109cm
+* botLZ=-9.00412mm
+*
+* 
 */
+
 //StepSize going down a row per single key is 1.96908cm
 //The step going
 //The angle of the front panel is 7.6946deg
 
-  vec3 topL(-20.413,3.5895,6.2521);
-  vec3 topR(8.2754,3.5895,6.2621);
-  vec3 botL(-20.413,6.2559,3.8236);
+//Was blender-esk:
+  vec3 topL(-15.6892,1.3334,1.5281);
+  vec3 topR(12.9989,1.3334,1.5281);
+  vec3 botL(-15.6892,-8.5109,-0.900412);
 
-  for (int row=0; row < 5; row++){
-    for(int col=0; col < 15; col++){
-    
+//Correct coordinates.
+  topL =  deBlender(topL);
+  topR =  deBlender(topR);
+  botL =  deBlender(botL);
+
+  //Make them cm's again.
+  topL/=100.0;
+  topR/=100.0;
+  botL/=100.0;
+
+  int numRows = 5;
+  int numCols = 15;
+
+  double LRStep = (topL.y() - topR.y() )/ (double) numCols;
+  double BFStep = (topL.x() - botL.x() )/ (double) numRows;
+  double UDStep = (topL.z() - botL.z() )/ (double) numRows;
+
+/*
+  keyboardKey * key = new keyboardKey;
+  key->updatePos(topL);
+  std::cout << topL << std::endl;
+
+  key = new keyboardKey;
+  key->updatePos(botL);
+  std::cout << botL << std::endl;
+  
+  key = new keyboardKey;
+  key->updatePos(topR);
+  std::cout << topR << std::endl;
+// */
+ // /*
+  vec3 pos(topL);
+  pos.y(pos.y() -LRStep/2 );
+  pos.x(pos.x() -BFStep/2);
+  pos.z(pos.z() - UDStep*2);
+  for (int row=0; row < numRows; row++){
+    for(int col=0; col < numCols; col++){
+      
+      keyboardKey * key = new keyboardKey;
+      key->updatePos(pos);
+
+      pos.y(pos.y() - LRStep);
     }
+    pos.y(topL.y() - LRStep/2);
+    pos.x(pos.x() - BFStep);
+    pos.z(pos.z() - UDStep);
   }
-
+// */
 }
 
 

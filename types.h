@@ -8,3 +8,9 @@ typedef chai3d::cMatrix3d mat3;
 typedef chai3d::cVector3d vec3;
 
 extern chai3d::cWorld* world;
+
+namespace proj{
+
+vec3 deBlender(vec3 vin);
+
+};

@@ -9,4 +9,9 @@ myObj::~myObj(){
 }
 
 
+
+void myObj::updatePos(){
+  cmm->setLocalPos(pos);
+}
+
 }

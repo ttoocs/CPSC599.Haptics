@@ -5,7 +5,6 @@
 namespace proj{
 
 class myObj{
-  //Will probably have phys stuff here.
   public:
   
   chai3d::cMultiMesh * cmm;
@@ -13,6 +12,13 @@ class myObj{
 
   myObj();
   virtual ~myObj();
+  
+  //Will probably have phys stuff here.
+  vec3 pos;
+  vec3 vel;
+
+  virtual void updatePos(vec3 npos) { pos = npos; updatePos();}
+  virtual void updatePos();
 };
 
 };
