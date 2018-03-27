@@ -7,8 +7,10 @@ myObj::myObj(){
 }
 // /*
 myObj::myObj(std::string model){
-  myObj();
+  //myObj();
+  cmm = new chai3d::cBulletMultiMesh(world); //TODO FIX THIS, I WANNA JUST CALL THE OTHER CONSTRUCTOR.
   this->loadFromFile(model);
+  world->addChild(cmm);
 }
 // */
 myObj::~myObj(){
@@ -44,7 +46,6 @@ void myObj::loadFromFile(std::string model){
   cmm->createAABBCollisionDetector(0.01);
 //  cmm->rotateAboutGlobalAxisDeg(chai3d::cVector3d(0,1,0),7.5);
 
-  world->addChild(cmm);
 }
 // */
 void myObj::updatePos(){

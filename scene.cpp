@@ -14,9 +14,9 @@ void init(){
  // objs.push_back(new keyboardKey);
  // objs.push_back(new keyboard);
   objs.push_back(new myObj("keyboard.3ds"));
-/*
-  world->setGravity(0.0, 0.0,-9.8);
 
+  world->setGravity(0.0, 0.0,-9.8);
+/*
   a = new chai3d::cBulletMesh(bulletWorld);
   world->addChild(a);
   chai3d::cCreateCylinder(a, 0.6, 0.1, 16, 1, 1, true, true, vec3(0.0, 0.0,-0.3));
@@ -34,7 +34,7 @@ void init(){
   a->buildDynamicModel();
   a->createAABBCollisionDetector(0.01);
   a->setLocalPos(0.0,0, 1); 
-
+*/
   bulletGround = new chai3d::cBulletStaticPlane(bulletWorld, vec3(0.0, 0.0, 0.0), -1);
   bulletGround->setLocalPos(0.0,0,0.25);
   bulletWorld->addChild(bulletGround);
@@ -50,7 +50,7 @@ void init(){
     // setup collision detector for haptic interaction
     bulletGround->createAABBCollisionDetector(0.01);
   
-*/
+// */
 }
 
 void clear(){

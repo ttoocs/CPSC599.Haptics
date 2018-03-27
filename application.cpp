@@ -222,7 +222,7 @@ int main(int argc, char* argv[])
     // position and orient the camera
     camera->set( cVector3d (0.5, 0.0, 0.2),    // camera position (eye)
                  cVector3d (0.0, 0.0, 0.0),    // look at position (target)
-                 cVector3d (0.0, 0.0, 1.0));   // direction of the (up) vector
+                 cVector3d (0.5, 0.0, 1.0));   // direction of the (up) vector
 
     // set the near and far clipping planes of the camera
     camera->setClippingPlanes(0.01, 10.0);
@@ -414,8 +414,9 @@ void updateGraphics(void)
     double time = gclock.getCurrentTimeSeconds()*1;
     gclock.start();
 
-    std::cout << time << std::endl;
-    camera->set( cVector3d (sin(time), cos(time), 0.2),    // camera position (eye)
+    time = 3.1415926535/2;
+//    std::cout << time << std::endl;
+    camera->set( cVector3d (sin(time), cos(time), 1),    // camera position (eye)
                  cVector3d (0.0, 0.0, 0.0),    // look at position (target)
                  cVector3d (0.0, 0.0, 1.0));   // direction of the (up) vector
 
