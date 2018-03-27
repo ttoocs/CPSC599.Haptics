@@ -47,6 +47,18 @@ include_directories (${CHAI3D_INCLUDE_DIRS})
 link_directories (${CHAI3D_LIBRARY_DIRS})
 add_definitions (${CHAI3D_DEFINITIONS})
 
+#BULLET!
+find_package(CHAI3D-BULLET REQUIRED)
+include_directories (${CHAI3D-BULLET_INCLUDE_DIRS})
+#link_directories (${CHAI3D-BULLET_LIBRARIES})
+link_libraries(chai3d-BULLET)
+add_definitions (${CHAI3D-BULLET_DEFINITIONS})
+
+###I'm honestly confused here, as I am _CLEARLY_ including the directories for bullet from the above,
+###And these are just copy-past from it... so No idea.
+include_directories ("/home/ttoocs/Sync/w2018/cpsc599.haptics/chai3d/modules/BULLET/src")
+include_directories ("/home/ttoocs/Sync/w2018/cpsc599.haptics/chai3d/modules/BULLET/external/bullet/src")
+
 # GLFW dependency
 find_package (GLFW REQUIRED)
 include_directories (${GLFW_INCLUDE_DIRS})
