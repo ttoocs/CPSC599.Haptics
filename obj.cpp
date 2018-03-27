@@ -6,9 +6,7 @@ myObj::myObj(){
   cmm = new chai3d::cBulletMultiMesh(world);
 }
 // /*
-myObj::myObj(std::string model){
-  //myObj();
-  cmm = new chai3d::cBulletMultiMesh(world); //TODO FIX THIS, I WANNA JUST CALL THE OTHER CONSTRUCTOR.
+myObj::myObj(std::string model) : myObj(){
   this->loadFromFile(model);
   world->addChild(cmm);
 }
