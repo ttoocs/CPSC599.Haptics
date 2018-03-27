@@ -12,10 +12,12 @@ namespace scene {
   chai3d::cBulletStaticPlane* bulletGround;
 void init(){
  // objs.push_back(new keyboardKey);
- // objs.push_back(new keyboard);
-  objs.push_back(new myObj("keyboard.3ds"));
+  objs.push_back(new keyboard);
+//  objs.push_back(new myObj("keyboard.3ds"));
 
   world->setGravity(0.0, 0.0,-9.8);
+
+//  world->setIntegrationSettings(0.0001,10);
 /*
   a = new chai3d::cBulletMesh(bulletWorld);
   world->addChild(a);

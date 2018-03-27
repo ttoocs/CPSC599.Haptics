@@ -3,8 +3,9 @@
 namespace proj{
 
 
-keyboardKey::keyboardKey(){
+keyboardKey::keyboardKey() : myObj("key.3ds"){
 
+/*
   cmm = new chai3d::cBulletMultiMesh(world);
   cmm->loadFromFile("key.3ds");
   cmm->createAABBCollisionDetector(0.1);
@@ -23,6 +24,7 @@ keyboardKey::keyboardKey(){
   cmm->rotateAboutGlobalAxisDeg(chai3d::cVector3d(0,1,0),7.5);
 
   world->addChild(cmm);
+*/
 }
 
 keyboardKey::~keyboardKey(){
