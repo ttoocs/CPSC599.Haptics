@@ -7,7 +7,7 @@ namespace proj{
 class myObj{
   public:
   
-  chai3d::cMultiMesh * cmm;
+  chai3d::cBulletMultiMesh * cmm;
 
 
   myObj();

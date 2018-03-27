@@ -5,7 +5,7 @@ namespace proj{
 
 keyboardKey::keyboardKey(){
 
-  cmm = new chai3d::cMultiMesh();
+  cmm = new chai3d::cBulletMultiMesh(world);
   cmm->loadFromFile("key.3ds");
   cmm->createAABBCollisionDetector(0.1);
   cmm->computeBTN();

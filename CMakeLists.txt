@@ -52,7 +52,7 @@ find_package(CHAI3D-BULLET REQUIRED)
 include_directories (${CHAI3D-BULLET_INCLUDE_DIRS})
 #link_directories (${CHAI3D-BULLET_LIBRARIES})
 link_libraries(chai3d-BULLET)
-add_definitions (${CHAI3D-BULLET_DEFINITIONS})
+#add_definitions (${CHAI3D-BULLET_DEFINITIONS})
 
 ###I'm honestly confused here, as I am _CLEARLY_ including the directories for bullet from the above,
 ###And these are just copy-past from it... so No idea.

@@ -41,7 +41,7 @@ bool mirroredDisplay = false;
 //------------------------------------------------------------------------------
 
 // a world that contains all objects of the virtual environment
-cWorld* world;
+cBulletWorld* world;
 
 // a camera to render the world in the window display
 cCamera* camera;
@@ -210,7 +210,7 @@ int main(int argc, char* argv[])
     //--------------------------------------------------------------------------
 
     // create a new world.
-    world = new cWorld();
+    world = new cBulletWorld();
 
     // set the background color of the environment
     world->m_backgroundColor.setBlack();
@@ -440,6 +440,7 @@ void updateGraphics(void)
 
 //------------------------------------------------------------------------------
 
+chai3d::cPrecisionClock hclock;
 void updateHaptics(void)
 {
     // simulation in now running
@@ -449,6 +450,17 @@ void updateHaptics(void)
     // main haptic simulation loop
     while(simulationRunning)
     {
+      hclock.stop();
+      // read the time increment in seconds
+      double timeInterval = chai3d::cMin(0.001, gclock.getCurrentTimeSeconds());
+      // restart the simulation clock
+      hclock.reset();
+      hclock.start();
+
+      bulletWorld->computeGlobalPositions(true);
+
+      bulletWorld->updateDynamics(timeInterval);
+
         /////////////////////////////////////////////////////////////////////
         // READ HAPTIC DEVICE
         /////////////////////////////////////////////////////////////////////
