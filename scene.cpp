@@ -11,9 +11,10 @@ namespace scene {
   chai3d::cBulletMesh* a; 
   chai3d::cBulletStaticPlane* bulletGround;
 void init(){
-  //objs.push_back(new keyboardKey);
-  //objs.push_back(new keyboard);
-
+ // objs.push_back(new keyboardKey);
+ // objs.push_back(new keyboard);
+  objs.push_back(new myObj("keyboard.3ds"));
+/*
   world->setGravity(0.0, 0.0,-9.8);
 
   a = new chai3d::cBulletMesh(bulletWorld);
@@ -49,6 +50,7 @@ void init(){
     // setup collision detector for haptic interaction
     bulletGround->createAABBCollisionDetector(0.01);
   
+*/
 }
 
 void clear(){
