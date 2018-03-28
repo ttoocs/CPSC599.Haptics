@@ -29,11 +29,6 @@ void myObj::loadFromFile(std::string model){
   }
 
   mesh->m_material = chai3d::cMaterial::create();
-  mesh->m_material->setGraySlate();
-
-  mesh->m_material->setStiffness(0.5 * 1000); //1000 being maxForce
-  mesh->m_material->setDynamicFriction(0.7);
-  mesh->m_material->setStaticFriction(1.0);
 //  mesh->m_material->setUseHapticShading(true);
   cmm->setStiffness(2000.0, true);
 
@@ -43,6 +38,18 @@ void myObj::loadFromFile(std::string model){
   cmm->buildDynamicModel();
   cmm->createAABBCollisionDetector(0.01);
 //  cmm->rotateAboutGlobalAxisDeg(chai3d::cVector3d(0,1,0),7.5);
+
+  for(int i = 0; i < 10; i++){
+    mesh = (chai3d::cBulletMesh*) cmm->getMesh(i);
+
+    if(mesh == NULL)
+      continue;
+
+    mesh->m_material->setGraySlate();
+    mesh->m_material->setStiffness(0.5 * 1000); //1000 being maxForce
+    mesh->m_material->setDynamicFriction(0.7);
+    mesh->m_material->setStaticFriction(1.0);
+  }
 
 }
 // */

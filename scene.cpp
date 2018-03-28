@@ -13,7 +13,11 @@ namespace scene {
 void init(){
  // objs.push_back(new keyboardKey);
   objs.push_back(new keyboard);
-//  objs.push_back(new myObj("keyboard.3ds"));
+  myObj * mouse = new myObj("/tmp/mouse.3ds");
+  mouse->cmm->rotateAboutLocalAxisDeg(vec3(0,0,1),180);
+//  mouse->cmm->scale(2,true);
+  mouse->cmm->setLocalPos(0,0.5,0);
+  objs.push_back(mouse);
 
   world->setGravity(0.0, 0.0,-9.8);
 
