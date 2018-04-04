@@ -25,7 +25,7 @@ void myObj::loadFromFile(std::string model){
   chai3d::cBulletMesh* mesh = (chai3d::cBulletMesh*) cmm->getMesh(0);
   
   if(mesh == NULL){
-    std::cout << "Loaded mesh from a key was null, IE: The key model wasn't loaded. Segfault imminent." << std::endl;
+    std::cout << "Loaded mesh from: " << model << " was null, IE: The key model wasn't loaded. Segfault imminent." << std::endl;
   }
 
   mesh->m_material = chai3d::cMaterial::create();
