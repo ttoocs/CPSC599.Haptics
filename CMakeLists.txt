@@ -56,8 +56,8 @@ link_libraries(chai3d-BULLET)
 
 ###I'm honestly confused here, as I am _CLEARLY_ including the directories for bullet from the above,
 ###And these are just copy-past from it... so No idea.
-include_directories ("/home/ttoocs/Sync/w2018/cpsc599.haptics/chai3d/modules/BULLET/src")
-include_directories ("/home/ttoocs/Sync/w2018/cpsc599.haptics/chai3d/modules/BULLET/external/bullet/src")
+include_directories (${CHAI3D_SOURCE_DIR}/modules/BULLET/src)
+include_directories (${CHAI3D_SOURCE_DIR}/modules/BULLET/external/bullet/src)
 
 # GLFW dependency
 find_package (GLFW REQUIRED)
@@ -133,6 +133,18 @@ elseif (${CMAKE_SYSTEM_NAME} MATCHES Darwin)
 
 endif ()
 
+
+#Setup Model defines.
+#obviously, this is awful for more models, but alas.
+get_filename_component(keyModelPath key.3ds REALPATH)
+get_filename_component(keyBoardModelPath keyboard.3ds REALPATH)
+get_filename_component(mouseModelPath mouse.3ds REALPATH)
+
+add_definitions (-DKEYMODEL="${keyModelPath}")
+add_definitions (-DKEYBOARDMODEL="${keyBoardModelPath}")
+add_definitions (-DMOUSEMODEL="${mouseModelPath}")
+
+
 # target executable
 add_executable (${PROJECT_NAME} application.cpp key.cpp obj.cpp scene.cpp keyboard.cpp types.cpp input.cpp)
 target_link_libraries (${PROJECT_NAME} ${CHAI3D_LIBRARIES} ${GLFW_LIBRARIES})
@@ -143,6 +155,7 @@ if (${CMAKE_SYSTEM_NAME} MATCHES Darwin)
 endif ()
 #file(COPY images DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 
-file(COPY keyboard.3ds DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-file(COPY key.3ds DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+
+#file(COPY keyboard.3ds DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+#file(COPY key.3ds DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 #file(COPY mouse.3ds DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})

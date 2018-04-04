@@ -13,7 +13,7 @@ namespace scene {
 void init(){
  // objs.push_back(new keyboardKey);
   objs.push_back(new keyboard);
-  myObj * mouse = new myObj("/tmp/mouse.3ds");
+  myObj * mouse = new myObj(MOUSEMODEL);
   mouse->cmm->rotateAboutLocalAxisDeg(vec3(0,0,1),180);
 //  mouse->cmm->scale(2,true);
   mouse->cmm->setLocalPos(0,0.5,0);

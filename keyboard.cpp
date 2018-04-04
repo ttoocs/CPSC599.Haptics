@@ -4,7 +4,7 @@
 namespace proj{
 
 
-keyboard::keyboard() : myObj("keyboard.3ds"){
+keyboard::keyboard() : myObj(KEYBOARDMODEL){
   
 /*
 cmm = new chai3d::cBulletMultiMesh(world);
