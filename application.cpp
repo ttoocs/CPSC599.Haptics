@@ -11,6 +11,7 @@
 #include <GLFW/glfw3.h>
 #include "scene.h"
 #include "input.h"
+#include "tool.h"
 //------------------------------------------------------------------------------
 using namespace chai3d;
 using namespace std;
@@ -52,16 +53,16 @@ cMultiMesh * obj;
 cDirectionalLight *light;
 
 // a haptic device handler
-cHapticDeviceHandler* handler;
+//cHapticDeviceHandler* handler;
 
 // a pointer to the current haptic device
-cGenericHapticDevicePtr hapticDevice;
+//cGenericHapticDevicePtr hapticDevice;
 
 // a label to display the rates [Hz] at which the simulation is running
 cLabel* labelRates;
 
 // a small sphere (cursor) representing the haptic device 
-cShapeSphere* cursor;
+// cShapeSphere* cursor;
 
 // flag to indicate if the haptic simulation currently running
 bool simulationRunning = false;
@@ -250,11 +251,12 @@ int main(int argc, char* argv[])
     light->setDir(-1.0, 0.0, 0.0); 
 
     // create a sphere (cursor) to represent the haptic device
-    cursor = new cShapeSphere(0.01);
+//    cursor = new cShapeSphere(0.01);
 
     // insert cursor inside world
-    world->addChild(cursor);
+//    world->addChild(cursor);
 
+    toolInit();
 
     //--------------------------------------------------------------------------
     // HAPTIC DEVICE
@@ -279,10 +281,10 @@ int main(int argc, char* argv[])
     if (info.m_sensedRotation == true)
     {
         // display reference frame
-        cursor->setShowFrame(true);
+        //cursor->setShowFrame(true);
 
         // set the size of the reference frame
-        cursor->setFrameSize(0.05);
+        //cursor->setFrameSize(0.05);
     }
 
     // if the device has a gripper, enable the gripper to simulate a user switch
@@ -458,14 +460,15 @@ void updateHaptics(void)
       hclock.reset();
       hclock.start();
 
-      bulletWorld->computeGlobalPositions(true);
+      toolHapticA();
+      //bulletWorld->computeGlobalPositions(true); //Done in toolA
 
-      bulletWorld->updateDynamics(timeInterval/2.0);
+      bulletWorld->updateDynamics(timeInterval/1.0);
 
         /////////////////////////////////////////////////////////////////////
         // READ HAPTIC DEVICE
         /////////////////////////////////////////////////////////////////////
-
+        /*
         // read position 
         cVector3d position;
         hapticDevice->getPosition(position);
@@ -484,8 +487,8 @@ void updateHaptics(void)
         /////////////////////////////////////////////////////////////////////
 
         // update position and orienation of cursor
-        cursor->setLocalPos(position);
-        cursor->setLocalRot(rotation);
+       // cursor->setLocalPos(position);
+       // cursor->setLocalRot(rotation);
 
         /////////////////////////////////////////////////////////////////////
         // COMPUTE FORCES
@@ -494,14 +497,16 @@ void updateHaptics(void)
         cVector3d force(0, 0, 0);
         cVector3d torque(0, 0, 0);
         double gripperForce = 0.0;
-
+        */
 
         /////////////////////////////////////////////////////////////////////
         // APPLY FORCES
         /////////////////////////////////////////////////////////////////////
 
         // send computed force, torque, and gripper force to haptic device
-        hapticDevice->setForceAndTorqueAndGripperForce(force, torque, gripperForce);
+        //hapticDevice->setForceAndTorqueAndGripperForce(force, torque, gripperForce);
+
+        toolHapticB();
 
         // signal frequency counter
         freqCounterHaptics.signal(1);
