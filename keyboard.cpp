@@ -26,6 +26,13 @@ cmm = new chai3d::cBulletMultiMesh(world);
 
   world->addChild(cmm);
 */
+
+//  this->cmm->setMass(100);
+//  this->cmm->estimateInertia();
+
+//  this->cmm->setStatic(true);
+//  this->cmm->m_bulletRigidBody->setActivationState(5);
+//  this->cmm->m_bulletRigidBody->forceActivationState(5);
   addKeys();
 }
 
@@ -99,9 +106,39 @@ void keyboard::addMainBlock(){
 
       //Slider constraints?
 //      btSliderConstraint (this->cmm,key->cmm,
+//      btGeneric6DofSpring2Constraint (btRigidBody &rbA, btRigidBody &rbB,
+//      const btTransform &frameInA, const btTransform &frameInB,
+//      RotateOrder rotOrder=RO_XYZ)
+      btTransform a;
+      btTransform b;
+      a.setIdentity();
+      b.setIdentity();
+      a.setOrigin(btVector3(pos.x(),pos.y(),pos.z()));
 
+//      /*
+      btGeneric6DofSpring2Constraint* spring = new btGeneric6DofSpring2Constraint(\
+      *(this->cmm->m_bulletRigidBody),  *(key->cmm->m_bulletRigidBody),\
+      a,b);
+      
+      #define mm(X,Y) X/1000.0, Y/1000.0
+      spring->setLimit(0,mm(-1,1));
+      spring->setLimit(1,mm(-1,1));
+      spring->setLimit(2,mm(-1,1));
+      spring->setLimit(3,0,0);
+      spring->setLimit(4,0,0);
+      spring->setLimit(5,0,0);
+      #undef mm
+
+      spring->enableSpring(0, true);
+      spring->setStiffness(0, 100);
+      spring->setDamping(0, 0);
+      spring->setEquilibriumPoint(0, 0);
+
+      this->cmm->m_dynamicWorld->m_bulletWorld->addConstraint(spring, true);
+
+      // */
       pos.y(pos.y() - LRStep);
-
+//      return;
     }
     pos.y(topL.y() - LRStep/2);
     pos.x(pos.x() - BFStep);
