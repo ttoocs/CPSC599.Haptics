@@ -6,8 +6,8 @@ myObj::myObj(){
   cmm = new chai3d::cBulletMultiMesh(world);
 }
 // /*
-myObj::myObj(std::string model) : myObj(){
-  this->loadFromFile(model);
+myObj::myObj(std::string model,bool useFilter, short int filterGroup, short int filterMask) : myObj(){
+  this->loadFromFile(model,useFilter,filterGroup,filterMask);
   world->addChild(cmm);
 }
 // */
@@ -16,7 +16,7 @@ myObj::~myObj(){
 }
 
 // /*
-void myObj::loadFromFile(std::string model){
+void myObj::loadFromFile(std::string model, bool useFilter, short int filterGroup, short int filterMask){
   
   cmm->loadFromFile(model);
   cmm->createAABBCollisionDetector(0.001);
@@ -35,7 +35,10 @@ void myObj::loadFromFile(std::string model){
   cmm->setMass(0.05);
   cmm->buildContactTriangles(0.001);
   cmm->estimateInertia();
-  cmm->buildDynamicModel();
+  if(useFilter){
+    cmm->buildDynamicModel(filterGroup, filterMask);
+  }else
+    cmm->buildDynamicModel();
   cmm->createAABBCollisionDetector(0.01);
 //  cmm->rotateAboutGlobalAxisDeg(chai3d::cVector3d(0,1,0),7.5);
 
@@ -55,6 +58,18 @@ void myObj::loadFromFile(std::string model){
 // */
 void myObj::updatePos(){
   cmm->setLocalPos(pos);
+}
+
+
+void myObj::change_collision_group(short int collisionFilterGroup, short int collisionFilterMask){
+
+  //Note: This doesn't seem to do it fully.
+  std::cout << "Not yet fully implmented, but attempting to change group collisions anyways" << std::endl;
+  btBroadphaseProxy* prox =  cmm->m_bulletRigidBody->getBroadphaseHandle();
+  prox->m_collisionFilterGroup = collisionFilterGroup;
+  prox->m_collisionFilterMask = collisionFilterMask;
+
+
 }
 
 };

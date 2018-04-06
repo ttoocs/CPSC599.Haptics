@@ -3,7 +3,7 @@
 namespace proj{
 
 
-keyboardKey::keyboardKey() : myObj(KEYMODEL){
+keyboardKey::keyboardKey() : myObj(KEYMODEL,true,8,2+4){
 
 /*
   cmm = new chai3d::cBulletMultiMesh(world);
@@ -25,6 +25,8 @@ keyboardKey::keyboardKey() : myObj(KEYMODEL){
 
   world->addChild(cmm);
 */
+
+//  change_collision_group(0,0);
 }
 
 keyboardKey::~keyboardKey(){

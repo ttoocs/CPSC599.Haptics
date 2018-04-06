@@ -4,8 +4,8 @@
 namespace proj{
 
 
-keyboard::keyboard() : myObj(KEYBOARDMODEL){
-  
+keyboard::keyboard() : myObj(KEYBOARDMODEL,true,1+4,1+2+4+8){
+
 /*
 cmm = new chai3d::cBulletMultiMesh(world);
   cmm->loadFromFile("keyboard.3ds");
@@ -56,7 +56,7 @@ void keyboard::addMainBlock(){
 * botLY=-8.5109cm
 * botLZ=-9.00412mm
 *
-* 
+*
 */
 
 //StepSize going down a row per single key is 1.96908cm
@@ -85,20 +85,6 @@ void keyboard::addMainBlock(){
   double BFStep = (topL.x() - botL.x() )/ (double) numRows;
   double UDStep = (topL.z() - botL.z() )/ (double) numRows;
 
-/*
-  keyboardKey * key = new keyboardKey;
-  key->updatePos(topL);
-  std::cout << topL << std::endl;
-
-  key = new keyboardKey;
-  key->updatePos(botL);
-  std::cout << botL << std::endl;
-  
-  key = new keyboardKey;
-  key->updatePos(topR);
-  std::cout << topR << std::endl;
-// */
- // /*
   vec3 pos(topL);
   pos.y(pos.y() -LRStep/2 );
   pos.x(pos.x() -BFStep/2);
@@ -106,18 +92,21 @@ void keyboard::addMainBlock(){
 
   for (int row=0; row < numRows; row++){
     for(int col=0; col < numCols; col++){
-      
+
       keyboardKey * key = new keyboardKey;
+//      key->cmm->rotateAboutGlobalAxisDeg(vec3(0,1,0),7.5);
       key->updatePos(pos);
 
-      //TODO: Rotate them the 7.6deg
+      //Slider constraints?
+//      btSliderConstraint (this->cmm,key->cmm,
+
       pos.y(pos.y() - LRStep);
+
     }
     pos.y(topL.y() - LRStep/2);
     pos.x(pos.x() - BFStep);
     pos.z(pos.z() - UDStep*1.5); //No idea why this need be 1.5
   }
-// */
 }
 
 

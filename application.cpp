@@ -460,7 +460,7 @@ void updateHaptics(void)
 
       bulletWorld->computeGlobalPositions(true);
 
-      bulletWorld->updateDynamics(timeInterval);
+      bulletWorld->updateDynamics(timeInterval/2.0);
 
         /////////////////////////////////////////////////////////////////////
         // READ HAPTIC DEVICE
