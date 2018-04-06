@@ -1,0 +1,49 @@
+#include "types.h"
+#include "obj.h"
+
+change_collision_group(myObj & obj, short int collisionFilterGroup, short int collisionFilterMask){
+  
+
+/*
+    Part of the cmm / cBulletMultiMesh / cBulletGenericObject
+
+    //! Bullet world.
+    cBulletWorld* m_dynamicWorld;
+
+    //! Bullet rigid body.
+    btRigidBody* m_bulletRigidBody;
+
+    //! Bullet collision shape
+    btCollisionShape* m_bulletCollisionShape;
+
+    //! Bullet motion state.
+    btDefaultMotionState* m_bulletMotionState;
+*/
+
+/* 
+*  On adding a new object: (btCollisionWorld.cpp)
+	collisionObject->setBroadphaseHandle( getBroadphase()->createProxy(
+		minAabb,
+		maxAabb,
+		type,
+		collisionObject,
+		collisionFilterGroup,
+		collisionFilterMask,
+		m_dispatcher1,0
+		))	;
+
+
+  // btCollisionObject is they type of collisionObject
+  //  has a m_broadphaseHandle
+    // getBroadphaseHandle()
+    // setBroadphaseHandle(btBroadphaseProxy* handle)
+*/
+
+  //btRigidBody inherents btCollisionObject
+  
+  btBroadphaseProxy* prox =  obj->cmm->m_bulletRigidBody->getBroadphaseHandle();
+  prox->m_collisionFilterGroup = collisionFilterGroup;
+  prox->m_collisionFilterMask = collisionFilterMask;
+
+
+}
