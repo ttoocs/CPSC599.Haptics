@@ -450,21 +450,31 @@ void updateHaptics(void)
     simulationRunning  = true;
     simulationFinished = false;
 
+    int cnt = 0;
     // main haptic simulation loop
     while(simulationRunning)
     {
-      hclock.stop();
-      // read the time increment in seconds
-      double timeInterval = chai3d::cMin(0.001, gclock.getCurrentTimeSeconds());
-      // restart the simulation clock
-      hclock.reset();
-      hclock.start();
 
       toolHapticA();
       //bulletWorld->computeGlobalPositions(true); //Done in toolA
 
-      bulletWorld->updateDynamics(timeInterval/1.0);
+      //if(cnt > 10)
+      {
 
+      hclock.stop();
+      // read the time increment in seconds
+      double timeInterval = hclock.getCurrentTimeSeconds();
+      // restart the simulation clock
+      hclock.reset();
+      hclock.start();
+
+        timeInterval = chai3d::cMin(0.001,timeInterval);
+//        timeInterval = cClamp(timeInterval, 0.0001, 0.001);
+
+        bulletWorld->updateDynamics(timeInterval/1.0);
+        cnt = 0;
+      }
+      cnt++;
         /////////////////////////////////////////////////////////////////////
         // READ HAPTIC DEVICE
         /////////////////////////////////////////////////////////////////////
