@@ -1,4 +1,5 @@
 #include "obj.h"
+#include "tool.h"
 
 namespace proj{
 
@@ -19,8 +20,8 @@ myObj::~myObj(){
 void myObj::loadFromFile(std::string model, bool useFilter, short int filterGroup, short int filterMask){
   
   cmm->loadFromFile(model);
-  cmm->createAABBCollisionDetector(0.001);
-  cmm->computeBTN();
+  //cmm->createAABBCollisionDetector(toolRadius);
+  //cmm->computeBTN();
 
   chai3d::cBulletMesh* mesh = (chai3d::cBulletMesh*) cmm->getMesh(0);
   
@@ -33,14 +34,14 @@ void myObj::loadFromFile(std::string model, bool useFilter, short int filterGrou
   cmm->setStiffness(2000.0, true);
 
   cmm->setMass(0.05);
-  cmm->buildContactTriangles(0.001);
+  cmm->buildContactTriangles(toolRadius/10);
   cmm->estimateInertia();
   if(useFilter){
     cmm->buildDynamicModel(filterGroup, filterMask);
   }else
     cmm->buildDynamicModel();
-  cmm->createAABBCollisionDetector(0.01);
-//  cmm->rotateAboutGlobalAxisDeg(chai3d::cVector3d(0,1,0),7.5);
+  cmm->createAABBCollisionDetector(toolRadius);
+  
 
   for(int i = 0; i < 10; i++){
     mesh = (chai3d::cBulletMesh*) cmm->getMesh(i);

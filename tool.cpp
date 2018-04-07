@@ -7,6 +7,7 @@
 chai3d::cGenericTool* tool;
 chai3d::cHapticDeviceHandler* handler;
 chai3d::cGenericHapticDevicePtr hapticDevice; 
+double toolRadius = 0.006;
 
 using namespace chai3d;
 using namespace std;
@@ -38,10 +39,9 @@ void toolInit(){
     tool->start();
 
     // map the physical workspace of the haptic device to a larger virtual workspace.
-    tool->setWorkspaceRadius(1.3);
+    tool->setWorkspaceRadius(0.1);
 
     // define a radius for the tool (graphical display)
-    double toolRadius = 0.06;
     tool->setRadius(toolRadius, toolRadius);
 
     // hide the device sphere. only show proxy.
@@ -76,6 +76,7 @@ void toolHapticA(){
             cHapticPoint* interactionPoint = tool->getHapticPoint(0);
 
             // check primary contact point if available
+//            /*
             for( int i =0 ; i < interactionPoint->getNumCollisionEvents(); i++)
             {
                 cCollisionEvent* collisionEvent = interactionPoint->getCollisionEvent(i);
@@ -84,18 +85,20 @@ void toolHapticA(){
                 // could be the mesh itself or a multi-mesh object. Once the owner found, we
                 // look for the parent that will point to the ODE object itself.
                 cGenericObject* object = collisionEvent->m_object->getOwner()->getOwner();
-
-                // cast to Bullet object
-                cBulletMesh* bulletobject = dynamic_cast<cBulletMesh*>(object);
+                
+                // cast to Bullet object //(EXCEPT, THE GENERIC, NOT SOME RANDOM MESH >.<
+                cBulletGenericObject* bulletobject = dynamic_cast<cBulletGenericObject*>(object);
 
                 // if ODE object, we apply interaction forces
                 if (bulletobject != NULL)
                 {
-                    bulletobject->addExternalForceAtPoint(-interactionPoint->getLastComputedForce(),
-                        collisionEvent->m_globalPos - object->getLocalPos());
+                    bulletobject->addExternalForceAtPoint(
+                      -interactionPoint->getLastComputedForce(),
+                      collisionEvent->m_globalPos - object->getLocalPos());
 
+                }else{
                 }
-            }
+            } // */
         
 }
 

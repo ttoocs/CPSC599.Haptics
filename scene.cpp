@@ -2,6 +2,7 @@
 
 #include "key.h"
 #include "keyboard.h"
+#include "tool.h"
 
 namespace proj {
 namespace scene {
@@ -10,16 +11,38 @@ namespace scene {
 
   chai3d::cBulletMesh* a; 
   chai3d::cBulletStaticPlane* bulletGround;
+
+  chai3d::cBulletSphere* bulletBall0;
 void init(){
- // objs.push_back(new keyboardKey);
+
+  //TEST KEY
+//  objs.push_back(new keyboardKey);
+
+/* ///TEST BALL////////////////
+  bulletBall0 = new chai3d::cBulletSphere(bulletWorld, 0.1);
+  bulletWorld->addChild(bulletBall0);
+ 
+
+  bulletBall0->m_material->setStiffness(0.5 * 1000);
+  bulletBall0->m_material->setDynamicFriction(0.7);
+  bulletBall0->m_material->setStaticFriction(1.0);
+
+
+  bulletBall0->setMass(0.05);
+  bulletBall0->estimateInertia();
+  bulletBall0->buildDynamicModel();
+  bulletBall0->createAABBCollisionDetector(toolRadius);
+*/
+
+  ///*
   objs.push_back(new keyboard);
   myObj * mouse = new myObj(MOUSEMODEL);
   mouse->cmm->rotateAboutLocalAxisDeg(vec3(0,0,1),180);
 //  mouse->cmm->scale(2,true);
   mouse->cmm->setLocalPos(0,0.5,0);
   objs.push_back(mouse);
-
-  world->setGravity(0.0, 0.0,-9.8);
+  //*/
+  world->setGravity(0.0, 0.0,-0);
 
 //  world->setIntegrationSettings(0.0001,10);
 /*
@@ -42,7 +65,7 @@ void init(){
   a->setLocalPos(0.0,0, 1); 
 */
   bulletGround = new chai3d::cBulletStaticPlane(bulletWorld, vec3(0.0, 0.0, 0.0), -1);
-  bulletGround->setLocalPos(0.0,0,0.25);
+  bulletGround->setLocalPos(0.0,0,0.6);
   bulletWorld->addChild(bulletGround);
   chai3d::cCreatePlane(bulletGround, 3.0, 3.0, bulletGround->getPlaneConstant() * bulletGround->getPlaneNormal());
   chai3d::cMaterial matGround;
@@ -54,7 +77,7 @@ void init(){
     bulletGround->setMaterial(matGround);
 
     // setup collision detector for haptic interaction
-    bulletGround->createAABBCollisionDetector(0.01);
+    bulletGround->createAABBCollisionDetector(toolRadius);
   
 // */
 }
