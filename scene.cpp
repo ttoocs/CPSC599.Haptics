@@ -42,9 +42,9 @@ void init(){
   mouse->cmm->setLocalPos(0,0.5,0);
   objs.push_back(mouse);
   //*/
-  world->setGravity(0.0, 0.0,-0);
+  world->setGravity(0.0, 0.0,-9.81);
 
-//  world->setIntegrationSettings(0.0001,10);
+  world->setIntegrationSettings(0.001,2);
 /*
   a = new chai3d::cBulletMesh(bulletWorld);
   world->addChild(a);
@@ -64,8 +64,8 @@ void init(){
   a->createAABBCollisionDetector(0.01);
   a->setLocalPos(0.0,0, 1); 
 */
-  bulletGround = new chai3d::cBulletStaticPlane(bulletWorld, vec3(0.0, 0.0, 0.0), -1);
-  bulletGround->setLocalPos(0.0,0,0.6);
+  bulletGround = new chai3d::cBulletStaticPlane(bulletWorld, vec3(0.0, 0.0, 0.0), 0);
+  bulletGround->setLocalPos(0.0,0,-0.05);
   bulletWorld->addChild(bulletGround);
   chai3d::cCreatePlane(bulletGround, 3.0, 3.0, bulletGround->getPlaneConstant() * bulletGround->getPlaneNormal());
   chai3d::cMaterial matGround;

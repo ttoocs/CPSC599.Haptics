@@ -39,7 +39,7 @@ void toolInit(){
     tool->start();
 
     // map the physical workspace of the haptic device to a larger virtual workspace.
-    tool->setWorkspaceRadius(0.1);
+    tool->setWorkspaceRadius(0.8);
 
     // define a radius for the tool (graphical display)
     tool->setRadius(toolRadius, toolRadius);
