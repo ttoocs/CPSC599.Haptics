@@ -12,6 +12,7 @@
 #include "scene.h"
 #include "input.h"
 #include "tool.h"
+#include "sim.h"
 //------------------------------------------------------------------------------
 using namespace chai3d;
 using namespace std;
@@ -342,6 +343,9 @@ int main(int argc, char* argv[])
 
         // signal frequency counter
         freqCounterGraphics.signal(1);
+
+        //Scale simulation params..
+        sim::scale();
     }
 
     // close window
@@ -458,7 +462,9 @@ void updateHaptics(void)
       toolHapticA();
       //bulletWorld->computeGlobalPositions(true); //Done in toolA
 
-      //if(cnt > 10)
+      //haptic_cnt, haptic_cMin, haptic_Clamp, haptic_Div,  are in scene.h
+
+      if(cnt > sim::haptic_cnt)
       {
 
       hclock.stop();
@@ -468,10 +474,12 @@ void updateHaptics(void)
       hclock.reset();
       hclock.start();
 
+      if(sim::haptic_cMin)
         timeInterval = chai3d::cMin(0.001,timeInterval);
-//        timeInterval = cClamp(timeInterval, 0.0001, 0.001);
+      if(sim::haptic_Clamp)
+        timeInterval = cClamp(timeInterval, 0.0001, 0.001);
 
-        bulletWorld->updateDynamics(timeInterval/1.0);
+        bulletWorld->updateDynamics(timeInterval/sim::haptic_Div);
         cnt = 0;
       }
       cnt++;

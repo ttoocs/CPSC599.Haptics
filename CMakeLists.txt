@@ -146,7 +146,7 @@ add_definitions (-DMOUSEMODEL="${mouseModelPath}")
 
 
 # target executable
-add_executable (${PROJECT_NAME} application.cpp key.cpp obj.cpp scene.cpp keyboard.cpp types.cpp input.cpp tool.cpp)
+add_executable (${PROJECT_NAME} application.cpp key.cpp obj.cpp scene.cpp keyboard.cpp types.cpp input.cpp tool.cpp sim.cpp)
 target_link_libraries (${PROJECT_NAME} ${CHAI3D_LIBRARIES} ${GLFW_LIBRARIES})
 
 # OS specific adjustments

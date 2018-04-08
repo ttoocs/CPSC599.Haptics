@@ -3,6 +3,7 @@
 #include "key.h"
 #include "keyboard.h"
 #include "tool.h"
+#include "sim.h"
 
 namespace proj {
 namespace scene {
@@ -34,7 +35,7 @@ void init(){
   bulletBall0->createAABBCollisionDetector(toolRadius);
 */
 
-  ///*
+  // /*
   objs.push_back(new keyboard);
   myObj * mouse = new myObj(MOUSEMODEL);
   mouse->cmm->rotateAboutLocalAxisDeg(vec3(0,0,1),180);
@@ -44,7 +45,7 @@ void init(){
   //*/
   world->setGravity(0.0, 0.0,-9.81);
 
-  world->setIntegrationSettings(0.001,2);
+  world->setIntegrationSettings(sim::bullet_ts, sim::bullet_maxIter);
 /*
   a = new chai3d::cBulletMesh(bulletWorld);
   world->addChild(a);

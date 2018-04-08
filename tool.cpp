@@ -3,6 +3,7 @@
 #include "CBullet.h"
 #include "tool.h"
 #include "types.h"
+#include "sim.h"
 
 chai3d::cGenericTool* tool;
 chai3d::cHapticDeviceHandler* handler;
@@ -132,8 +133,12 @@ void toolHapticA(){
                 // if ODE object, we apply interaction forces
                 if (bulletobject != NULL)
                 {
+                                    
+                    double simScale = 1;
+//                    if(sim::haptic_cnt != 0)
+//                      simScale /= sim::haptic_cnt;
                     bulletobject->addExternalForceAtPoint(
-                      -interactionPoint->getLastComputedForce(),
+                      -interactionPoint->getLastComputedForce()*simScale,
                       collisionEvent->m_globalPos - object->getLocalPos());
 
                 }else{
