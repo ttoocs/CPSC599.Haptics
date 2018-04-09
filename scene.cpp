@@ -16,7 +16,7 @@ namespace scene {
 
   chai3d::cBulletSphere* bulletBall0;
 
-  Screen *s;
+  //Screen *s;
 void init(){
 
   //TEST KEY
@@ -39,7 +39,9 @@ void init(){
 */
 
   
-  s = new Screen();
+  //s = new Screen();
+
+  Screen::InitScreen();
 
   // /*
   objs.push_back(new keyboard);

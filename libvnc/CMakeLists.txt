@@ -380,6 +380,7 @@ if(HAVE_FFMPEG)
   )
 endif(HAVE_FFMPEG)
 
+if(false)
 
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/examples)
 foreach(test ${LIBVNCSERVER_TESTS})
@@ -392,6 +393,8 @@ foreach(test ${LIBVNCCLIENT_TESTS})
   add_executable(client_examples_${test} ${LIBVNCCLITEST_DIR}/${test}.c ${LIBVNCCLITEST_DIR}/${${test}_EXTRA_SOURCES} )
   target_link_libraries(client_examples_${test} vncclient ${CMAKE_THREAD_LIBS_INIT} ${X11_LIBRARIES} ${SDL_LIBRARY} ${FFMPEG_LIBRARIES})
 endforeach(test ${LIBVNCCLIENT_TESTS})
+
+endif()
 
 install_targets(/lib vncserver)
 install_targets(/lib vncclient)

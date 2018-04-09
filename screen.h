@@ -1,15 +1,12 @@
 #pragma once
 
-#include <rfb/rfbclient.h>
+#include "chai3d.h"
 
-class Screen{
-  public:
-    rfbClient* client;// = rfbGetClient(8,3,4);
-//    time_t t=time(NULL);
+namespace Screen{
+  extern chai3d::cImage img;
+  extern void InitScreen();
 
-    Screen();
-
+  extern void check();
 };
-
 
 

@@ -13,6 +13,7 @@
 #include "input.h"
 #include "tool.h"
 #include "sim.h"
+#include "screen.h"
 //------------------------------------------------------------------------------
 using namespace chai3d;
 using namespace std;
@@ -124,11 +125,17 @@ void close(void);
 */
 //==============================================================================
 
+int argc_p;
+char ** argv_p;
+
 int main(int argc, char* argv[])
 {
     //--------------------------------------------------------------------------
     // INITIALIZATION
     //--------------------------------------------------------------------------
+
+    argc_p = argc;
+    argv_p = argv;
 
     proj::inputHelp();
 
@@ -346,6 +353,8 @@ int main(int argc, char* argv[])
 
         //Scale simulation params..
         sim::scale();
+
+        Screen::check();
     }
 
     // close window
