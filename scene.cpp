@@ -71,8 +71,8 @@ void init(){
   chai3d::cCreatePlane(bulletGround, 3.0, 3.0, bulletGround->getPlaneConstant() * bulletGround->getPlaneNormal());
   chai3d::cMaterial matGround;
     matGround.setStiffness(0.3 * 1000);
-    matGround.setDynamicFriction(0.2);
-    matGround.setStaticFriction(0.0);
+    matGround.setDynamicFriction(0.8);
+    matGround.setStaticFriction(0.8);
     matGround.setWhite();
     matGround.m_emission.setGrayLevel(0.3);
     bulletGround->setMaterial(matGround);

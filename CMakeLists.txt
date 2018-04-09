@@ -41,6 +41,9 @@
 cmake_minimum_required (VERSION 3.0.0)
 project (application-GLFW)
 
+
+add_subdirectory(libvnc)
+
 # chai3d dependency
 find_package (CHAI3D 3.2 REQUIRED)
 include_directories (${CHAI3D_INCLUDE_DIRS})

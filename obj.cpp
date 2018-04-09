@@ -51,8 +51,8 @@ void myObj::loadFromFile(std::string model, bool useFilter, short int filterGrou
 
     mesh->m_material->setGraySlate();
     mesh->m_material->setStiffness(0.5 * 1000); //1000 being maxForce
-    mesh->m_material->setDynamicFriction(0.7);
-    mesh->m_material->setStaticFriction(1.0);
+    mesh->m_material->setDynamicFriction(1);
+    mesh->m_material->setStaticFriction(10);
   }
 
 }

@@ -123,16 +123,23 @@ void keyboard::addMainBlock(){
       #define mm(X,Y) X/1000.0, Y/1000.0
       spring->setLimit(0,mm(-1,1));
       spring->setLimit(1,mm(-1,1));
-      spring->setLimit(2,mm(-1,1));
+      spring->setLimit(2,mm(-1,10));
       spring->setLimit(3,0,0);
       spring->setLimit(4,0,0);
       spring->setLimit(5,0,0);
       #undef mm
-
-      spring->enableSpring(0, true);
-      spring->setStiffness(0, 100);
-      spring->setDamping(0, 0);
+ 
+      spring->enableSpring(2, true);
+      spring->setStiffness(2, 10);
+      spring->setDamping(2, 0.1);
       spring->setEquilibriumPoint(0, 0);
+      spring->setEquilibriumPoint(1, 0);
+      spring->setEquilibriumPoint(2, 10);
+      spring->setEquilibriumPoint(3, 0);
+      spring->setEquilibriumPoint(4, 0);
+      spring->setEquilibriumPoint(5, 0);
+
+      cmm->setMass(0.005);
 
       this->cmm->m_dynamicWorld->m_bulletWorld->addConstraint(spring, true);
 
