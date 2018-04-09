@@ -84,9 +84,9 @@ void init(){
     matGround.setWhite();
     matGround.m_emission.setGrayLevel(0.3);
 
-//    bulletGround->setUseTexture(true);
+    bulletGround->setUseTexture(true);
     
-//    bulletGround->setTexture(&Screen::tex);
+    bulletGround->setTexture(Screen::tex);
 
     bulletGround->setMaterial(matGround);
 
