@@ -83,6 +83,11 @@ void init(){
     matGround.setStaticFriction(0.8);
     matGround.setWhite();
     matGround.m_emission.setGrayLevel(0.3);
+
+//    bulletGround->setUseTexture(true);
+    
+//    bulletGround->setTexture(&Screen::tex);
+
     bulletGround->setMaterial(matGround);
 
     // setup collision detector for haptic interaction

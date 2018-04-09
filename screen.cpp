@@ -7,15 +7,16 @@
 
 #include <string>
 
+//#include "gl_helpers.h"
+
 extern int argc_p;
 extern char* argv_p[];
 
 namespace Screen{
 
   rfbClient* client; 
-  chai3d::cImage img;
-  chai3d::cImage img_b;
-
+  std::shared_ptr<chai3d::cImage> img;
+  std::shared_ptr<chai3d::cTexture2d> tex;
   
 
 
@@ -85,13 +86,57 @@ static rfbBool rfbInitConnection(rfbClient* client)
 
 
 void update(rfbClient* client, int x, int y, int w, int h){
+    return;
 //  std::cout << "VNC UPDATE" << std::endl;
+    rfbPixelFormat* pf=&client->format;
+//    PrintPixelFormat (pf);
+//    32 bits per pixel.
+//    Least significant byte first in each pixel.
+//    TRUE colour: max red 255 green 255 blue 255, shift red 0 green 8 blue 16
 
+      //Manual stuffs
+    //unsigned char* d = img.getData();
+   
+    int bpp=pf->bitsPerPixel/8;
+    int row_stride=client->width*bpp;
+    int ix=0;
+    int iy=0;
+/*
+    for(int x=0; x < img.getWidth(); x++){
+      for(int y=0; y < img.getHeight(); y++){ */
+    #pragma omp parallel for
+    for(int j=0;j<client->height*row_stride;j+=row_stride){
+      for(int i=0;i<client->width*bpp;i+=bpp) {
+        unsigned char* p=client->frameBuffer+j+i;
+                        unsigned int v;
+                        if(bpp==4)
+                                v=*(unsigned int*)p;
+                        else if(bpp==2)
+                                v=*(unsigned short*)p;
+                        else
+                                v=*(unsigned char*)p;
+        
+        GLubyte R = (v>>pf->redShift)*256/(pf->redMax+1);
+        GLubyte G = (v>>pf->greenShift)*256/(pf->greenMax+1);
+        GLubyte B = (v>>pf->blueShift)*256/(pf->blueMax+1);
+//        R /=256;
+//        G /=256;
+//        B /=256;
+        chai3d::cColorb c = chai3d::cColorb(chai3d::cColorBtoF(R),chai3d::cColorBtoF(G),chai3d::cColorBtoF(B));
+
+//          std::cout << "(" << R << "," << G << "," << B << ")" << std::endl;
+
+        //img->setPixelColor(ix,iy,c);
+        ix++;
+      }
+    iy++;
+  }
+  //tex->setImage(img);
 }
 
 int cnt=0;
 void check(){
-  if(cnt > 30){
+  if(cnt > 100){
     WaitForMessage(client,0);
     HandleRFBServerMessage(client);
     cnt = 0;
@@ -120,6 +165,14 @@ void InitScreen(){
 
   client->GotFrameBufferUpdate = update;
 
+  
+//  img->allocate(client->width, client->height,GL_RGB,GL_UNSIGNED_INT);
+//  std::cout << client->width << "," <<  client->height << std::endl; //Img size OK
+  
+  //Set Img to RFB buffer?
+//  img.setData(client->framebuffer, client->size
+  
+  
 }
 
 
