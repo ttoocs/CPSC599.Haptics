@@ -15,10 +15,10 @@ extern char* argv_p[];
 namespace Screen{
 
   rfbClient* client; 
-  std::shared_ptr<chai3d::cImage> img;
-  std::shared_ptr<chai3d::cTexture2d> tex;
-  
-
+// chai3d::cImage img;
+// chai3d::cTexture2d tex;
+  chai3d::cImagePtr img = chai3d::cImage::create();
+  chai3d::cTexture2dPtr tex = chai3d::cTexture2d::create();
 
 
 ///////////////////////////LIBVNC snippit, cuase.. why not? Why include this? pff.
@@ -86,7 +86,6 @@ static rfbBool rfbInitConnection(rfbClient* client)
 
 
 void update(rfbClient* client, int x, int y, int w, int h){
-    return;
 //  std::cout << "VNC UPDATE" << std::endl;
     rfbPixelFormat* pf=&client->format;
 //    PrintPixelFormat (pf);
@@ -126,18 +125,21 @@ void update(rfbClient* client, int x, int y, int w, int h){
 
 //          std::cout << "(" << R << "," << G << "," << B << ")" << std::endl;
 
-        //img->setPixelColor(ix,iy,c);
+        img->setPixelColor(ix,iy,c);
         ix++;
       }
     iy++;
   }
-  //tex->setImage(img);
+  tex->setImage(img);
 }
 
+bool connected = true;
 int cnt=0;
 void check(){
+  if(!connected)
+    return;
   if(cnt > 100){
-    WaitForMessage(client,0);
+    WaitForMessage(client,1);
     HandleRFBServerMessage(client);
     cnt = 0;
   }
@@ -158,15 +160,17 @@ void InitScreen(){
 
 //    rfbInitConnection(client)
   if(!rfbInitConnection(client)){
-    std::cout << "No VNC client." << std::endl;
+    std::cout << "No VNC client." << std::endl; 
+    connected=true;
   }
+ 
 
   //Data seems to hide in client->frameBuffer+j+i
 
   client->GotFrameBufferUpdate = update;
 
-  
-//  img->allocate(client->width, client->height,GL_RGB,GL_UNSIGNED_INT);
+
+  img->allocate(client->width, client->height,GL_RGB,GL_UNSIGNED_INT);
 //  std::cout << client->width << "," <<  client->height << std::endl; //Img size OK
   
   //Set Img to RFB buffer?
