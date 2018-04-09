@@ -148,9 +148,11 @@ add_definitions (-DKEYBOARDMODEL="${keyBoardModelPath}")
 add_definitions (-DMOUSEMODEL="${mouseModelPath}")
 
 
+include_directories( ${VNCINC})
+
 # target executable
 add_executable (${PROJECT_NAME} application.cpp key.cpp obj.cpp scene.cpp keyboard.cpp types.cpp input.cpp tool.cpp sim.cpp)
-target_link_libraries (${PROJECT_NAME} ${CHAI3D_LIBRARIES} ${GLFW_LIBRARIES})
+target_link_libraries (${PROJECT_NAME} ${CHAI3D_LIBRARIES} ${GLFW_LIBRARIES} ${LIBVNCSERVER_DIR} ${COMMON_DIR} ${LIBVNCCLIENT_DIR})
 
 # OS specific adjustments
 if (${CMAKE_SYSTEM_NAME} MATCHES Darwin)
