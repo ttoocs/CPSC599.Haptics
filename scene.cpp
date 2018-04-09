@@ -4,6 +4,7 @@
 #include "keyboard.h"
 #include "tool.h"
 #include "sim.h"
+#include "screen.h"
 
 namespace proj {
 namespace scene {
@@ -14,6 +15,8 @@ namespace scene {
   chai3d::cBulletStaticPlane* bulletGround;
 
   chai3d::cBulletSphere* bulletBall0;
+
+  Screen *s;
 void init(){
 
   //TEST KEY
@@ -34,6 +37,9 @@ void init(){
   bulletBall0->buildDynamicModel();
   bulletBall0->createAABBCollisionDetector(toolRadius);
 */
+
+  
+  s = new Screen();
 
   // /*
   objs.push_back(new keyboard);

@@ -8,7 +8,7 @@ namespace sim {
   int haptic_cnt = 10;
 
   
-  #define print std::cout << "Haptic_cnt set to:\t" << haptic_cnt << std::endl;
+  #define print //std::cout << "Haptic_cnt set to:\t" << haptic_cnt << std::endl;
 
   void scale(){
     if(freqCounterHaptics.getFrequency() < 500){
