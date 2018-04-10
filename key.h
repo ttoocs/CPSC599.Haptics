@@ -28,7 +28,7 @@ class keyboardKey: public myObj {
 
   static std::vector<keyboardKey *> keys;
   
-  void updateKey(double dt);
+  btVector3 updateKey(double dt);
   static void updateKeys(double dt);
 
 

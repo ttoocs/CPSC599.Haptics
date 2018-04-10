@@ -10,8 +10,8 @@ namespace sim {
   double bullet_ts = 0.001;
   //double bullet_ts = 0.0005;
   double bullet_maxIter = 2;
-  double haptic_mul = 1.0/2;
-  int haptic_mul_h = 1;
+  double haptic_mul = 1.0/2000;
+  int haptic_mul_h = 500;
 
   bool haptic_cMin = false;
   bool haptic_Clamp = false;

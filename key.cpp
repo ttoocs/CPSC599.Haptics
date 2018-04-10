@@ -54,7 +54,7 @@ keyboardKey::~keyboardKey(){
 //  keys.erase(this);
 }
 
-void keyboardKey::updateKey(double dt){
+btVector3 keyboardKey::updateKey(double dt){
   btVector3 vel = rb->getLinearVelocity();
   accel = btVector3(0,0,0);
   btTransform tran =  proj::scene::LeKeyboard->cmm->m_bulletRigidBody->getCenterOfMassTransform();
@@ -66,7 +66,7 @@ void keyboardKey::updateKey(double dt){
   diff += rot*offset;
   
   diff -=  rb->getCenterOfMassTransform().getOrigin();
-  diff *= 1000;
+  diff *= 500;
   
   diff = btDot(diff,up)/(btDot(up,up)) * up;
 
@@ -85,12 +85,16 @@ void keyboardKey::updateKey(double dt){
 #else
   rb->applyCentralForce(accel);
 #endif
+
+  return diff;
 }
 
 void keyboardKey::updateKeys(double dt){
+  btVector3 rf = btVector3(0,0,0);
   for(auto it = keys.begin(); it != keys.end(); it++){
-    (*it)->updateKey(dt);
+    rf -= (*it)->updateKey(dt);
   }
+  proj::scene::LeKeyboard->cmm->m_bulletRigidBody->applyCentralForce(rf);
 }
 
 };

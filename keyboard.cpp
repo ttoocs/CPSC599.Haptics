@@ -87,8 +87,8 @@ void keyboard::addMainBlock(){
 
 //  int numRows = 5;
 //  int numCols = 15;
-  int numRows =1;
-  int numCols =1;
+  int numRows =5;
+  int numCols =15;
 
   double LRStep = (topL.y() - topR.y() )/ (double) numCols;
   double BFStep = (topL.x() - botL.x() )/ (double) numRows;
@@ -102,12 +102,14 @@ void keyboard::addMainBlock(){
   pos.x(pos.x() -BFStep/2);
   pos.z(pos.z() - UDStep*2);
 
+  #define RestOffset 0.010
+
   for (int row=0; row < numRows; row++){
     for(int col=0; col < numCols; col++){
 
       keyboardKey * key = new keyboardKey;
 //      key->cmm->rotateAboutGlobalAxisDeg(vec3(0,1,0),7.5);
-      key->updatePos(pos);
+      key->updatePos(pos + vec3(0,0,RestOffset));
 
       //Slider constraints?
 //      btSliderConstraint (this->cmm,key->cmm,
@@ -130,13 +132,13 @@ void keyboard::addMainBlock(){
   #endif
       a,b);
       
-      key->offset = btVector3(pos.x(),pos.y(),pos.z()+0.045);
+      key->offset = btVector3(pos.x(),pos.y(),pos.z()+RestOffset);
       
 
       #define mm(X,Y) X/1000.0, Y/1000.0
       spring->setLimit(0,mm(-0.1,0.1));
       spring->setLimit(1,mm(-0.1,0.1));
-      spring->setLimit(2,mm(25,50));
+      spring->setLimit(2,mm(0,50));
       spring->setLimit(3,0,0);
       spring->setLimit(4,0,0);
       spring->setLimit(5,0,0);
