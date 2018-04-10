@@ -12,7 +12,10 @@ class keyboardKey: public myObj {
   keyboardKey();
   virtual ~keyboardKey();
 
+  chai3d::cBulletBox * box = NULL;
 
+  virtual void updatePos(vec3 pos);
+  virtual void updatePos();
 };
 
 

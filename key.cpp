@@ -1,32 +1,41 @@
+#include "tool.h"
+#include "obj.h"
 #include "key.h"
 
 namespace proj{
 
 
-keyboardKey::keyboardKey() : myObj(KEYMODEL,true,8,2+4,0.0001){
-
+keyboardKey::keyboardKey() :  myObj(KEYMODEL,true,8,2+4,0.0001,0.4,0.2,true)
+{
 /*
-  cmm = new chai3d::cBulletMultiMesh(world);
-  cmm->loadFromFile("key.3ds");
-  cmm->createAABBCollisionDetector(0.1);
-  cmm->computeBTN();
+  box = new chai3d::cBulletBox(world,0.017,0.017,0.012);
 
-  chai3d::cMesh* mesh = cmm->getMesh(0);
+  chai3d::cMaterial mat0; 
+  mat0.setRedIndian();
+  mat0.setStiffness(0.3 * 1000);
+  mat0.setDynamicFriction(0.6);
+  mat0.setStaticFriction(0.6);
+  box->setMaterial(mat0);
 
-  if(mesh == NULL){
-    std::cout << "Loaded mesh from a key was null, IE: The key model wasn't loaded. Segfault imminent." << std::endl;
-  }
-  mesh->m_material =  chai3d::cMaterial::create();
-  mesh->m_material->setGraySlate();
-  mesh->m_material->setUseHapticShading(true);
-  cmm->setStiffness(2000.0, true);
+  box->buildContactTriangles(toolRadius/10);
+  box->setMass(0.001);
+  box->estimateInertia();
+  box->buildDynamicModel(8,2+4);
+  box->createAABBCollisionDetector(toolRadius); 
 
-  cmm->rotateAboutGlobalAxisDeg(chai3d::cVector3d(0,1,0),7.5);
+  world->addChild(box); */
+}
 
-  world->addChild(cmm);
-*/
+void keyboardKey::updatePos(vec3 pos){
+  this->pos = pos;
+  updatePos();
+}
 
-//  change_collision_group(0,0);
+void keyboardKey::updatePos(){
+  if(box != NULL)
+    box->setLocalPos(pos);
+  if(cmm != NULL)
+    cmm->setLocalPos(pos);
 }
 
 keyboardKey::~keyboardKey(){

@@ -16,14 +16,14 @@ namespace proj{
 class myObj{
   public:
 
-  chai3d::cBulletMultiMesh * cmm;
+  chai3d::cBulletMultiMesh * cmm=NULL;
 
 
   myObj();
-  myObj(std::string model, bool useFilter=true, short int filerGroup=1, short int filterMask=1+2 , double mass=0.05,double sfric=0.1, double dfric=0.1);
+  myObj(std::string model, bool useFilter=true, short int filerGroup=1, short int filterMask=1+2 , double mass=0.05,double sfric=0.1, double dfric=0.1, bool add=true);
   virtual ~myObj();
 
-  void loadFromFile(std::string model, bool useFilter=true, short int filerGroup=1, short int filterMask=1+2, double mass=0.05,double sfric=0.1, double dfric=0.1);
+  void loadFromFile(std::string model, bool useFilter=true, short int filerGroup=1, short int filterMask=1+2, double mass=0.05,double sfric=0.1, double dfric=0.1, bool add=true);
 
   //Will probably have phys stuff here. - NOPE BULLET.
   vec3 pos;

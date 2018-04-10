@@ -7,8 +7,8 @@ myObj::myObj(){
   cmm = new chai3d::cBulletMultiMesh(world);
 }
 // /*
-myObj::myObj(std::string model,bool useFilter, short int filterGroup, short int filterMask, double mass, double sfric, double dfric) : myObj(){
-  this->loadFromFile(model,useFilter,filterGroup,filterMask);
+myObj::myObj(std::string model,bool useFilter, short int filterGroup, short int filterMask, double mass, double sfric, double dfric, bool add) : myObj(){
+  this->loadFromFile(model,useFilter,filterGroup,filterMask,mass,sfric,dfric,add);
   world->addChild(cmm);
 }
 // */
@@ -17,7 +17,7 @@ myObj::~myObj(){
 }
 
 // /*
-void myObj::loadFromFile(std::string model, bool useFilter, short int filterGroup, short int filterMask, double mass, double sfric, double dfric){
+void myObj::loadFromFile(std::string model, bool useFilter, short int filterGroup, short int filterMask, double mass, double sfric, double dfric, bool add){
   
   cmm->loadFromFile(model);
   //cmm->createAABBCollisionDetector(toolRadius);
@@ -32,6 +32,7 @@ void myObj::loadFromFile(std::string model, bool useFilter, short int filterGrou
   }
   */
 
+  if(add){
   cmm->setStiffness(2000.0, true);
 
   cmm->buildContactTriangles(toolRadius/10);
@@ -45,7 +46,9 @@ void myObj::loadFromFile(std::string model, bool useFilter, short int filterGrou
     cmm->buildDynamicModel();
   }
   cmm->createAABBCollisionDetector(toolRadius);
-  
+
+  }
+
   for(int i = 0; i < 10; i++){
     mesh = (chai3d::cBulletMesh*) cmm->getMesh(i);
 

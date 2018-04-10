@@ -51,8 +51,7 @@ void keyboard::addKeys(){
 void keyboard::addMainBlock(){
 /*
 *
-* topLX=-15.6892cm
-* topLY=1.3334cm
+
 * topLZ=1.5281cm
 *
 * topRX=12.9989cm
@@ -116,14 +115,17 @@ void keyboard::addMainBlock(){
       a.setOrigin(btVector3(pos.x(),pos.y(),pos.z()));
 
 //      /*
+      #define box cmm
       btGeneric6DofSpring2Constraint* spring = new btGeneric6DofSpring2Constraint(\
-      *(this->cmm->m_bulletRigidBody),  *(key->cmm->m_bulletRigidBody),\
+      *(this->cmm->m_bulletRigidBody),
+      //*(key->cmm->m_bulletRigidBody),
+      *(key->box->m_bulletRigidBody),
       a,b);
       
       #define mm(X,Y) X/1000.0, Y/1000.0
-      spring->setLimit(0,mm(-.51,.51));
-      spring->setLimit(1,mm(-.51,.51));
-      spring->setLimit(2,mm(-.51,10));
+      spring->setLimit(0,mm(-.01,.01));
+      spring->setLimit(1,mm(-.01,.01));
+      spring->setLimit(2,mm(-.01,.01));
       spring->setLimit(3,0,0);
       spring->setLimit(4,0,0);
       spring->setLimit(5,0,0);
@@ -140,13 +142,14 @@ void keyboard::addMainBlock(){
       spring->setStiffness(2, 10);
       spring->setDamping(2, 2);
 
-      spring->setEquilibriumPoint(2, 10);
+      spring->setEquilibriumPoint(2, 1);
 
       this->cmm->m_dynamicWorld->m_bulletWorld->addConstraint(spring, true);
 
       // */
       pos.y(pos.y() - LRStep);
 //      return;
+
     }
     pos.y(topL.y() - LRStep/2);
     pos.x(pos.x() - BFStep);
