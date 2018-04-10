@@ -20,10 +20,10 @@ class myObj{
 
 
   myObj();
-  myObj(std::string model, bool useFilter=true, short int filerGroup=1, short int filterMask=1+2);
+  myObj(std::string model, bool useFilter=true, short int filerGroup=1, short int filterMask=1+2 , double mass=0.05,double sfric=0.1, double dfric=0.1);
   virtual ~myObj();
 
-  void loadFromFile(std::string model, bool useFilter=true, short int filerGroup=1, short int filterMask=1+2);
+  void loadFromFile(std::string model, bool useFilter=true, short int filerGroup=1, short int filterMask=1+2, double mass=0.05,double sfric=0.1, double dfric=0.1);
 
   //Will probably have phys stuff here. - NOPE BULLET.
   vec3 pos;

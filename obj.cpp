@@ -7,7 +7,7 @@ myObj::myObj(){
   cmm = new chai3d::cBulletMultiMesh(world);
 }
 // /*
-myObj::myObj(std::string model,bool useFilter, short int filterGroup, short int filterMask) : myObj(){
+myObj::myObj(std::string model,bool useFilter, short int filterGroup, short int filterMask, double mass, double sfric, double dfric) : myObj(){
   this->loadFromFile(model,useFilter,filterGroup,filterMask);
   world->addChild(cmm);
 }
@@ -17,7 +17,7 @@ myObj::~myObj(){
 }
 
 // /*
-void myObj::loadFromFile(std::string model, bool useFilter, short int filterGroup, short int filterMask){
+void myObj::loadFromFile(std::string model, bool useFilter, short int filterGroup, short int filterMask, double mass, double sfric, double dfric){
   
   cmm->loadFromFile(model);
   //cmm->createAABBCollisionDetector(toolRadius);
@@ -33,7 +33,7 @@ void myObj::loadFromFile(std::string model, bool useFilter, short int filterGrou
 //  mesh->m_material->setUseHapticShading(true);
   cmm->setStiffness(2000.0, true);
 
-  cmm->setMass(0.05);
+  cmm->setMass(mass);
   cmm->buildContactTriangles(toolRadius/10);
   cmm->estimateInertia();
   if(useFilter){
@@ -51,8 +51,8 @@ void myObj::loadFromFile(std::string model, bool useFilter, short int filterGrou
 
     mesh->m_material->setGraySlate();
     mesh->m_material->setStiffness(0.5 * 1000); //1000 being maxForce
-    mesh->m_material->setDynamicFriction(1);
-    mesh->m_material->setStaticFriction(10);
+    mesh->m_material->setDynamicFriction(dfric);
+    mesh->m_material->setStaticFriction(sfric);
   }
 
 }
