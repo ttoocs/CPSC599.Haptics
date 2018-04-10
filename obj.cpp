@@ -60,7 +60,7 @@ void myObj::loadFromFile(std::string model, bool useFilter, short int filterGrou
 
     mesh->m_material = chai3d::cMaterial::create();
     mesh->m_material->setGraySlate();
-    mesh->m_material->setStiffness(0.5 * 1000); //1000 being maxForce
+    mesh->m_material->setStiffness(2000); //1000 being maxForce
     mesh->m_material->setDynamicFriction(dfric);
     mesh->m_material->setStaticFriction(sfric);
   }

@@ -3,6 +3,10 @@
 #include "types.h"
 #include "obj.h"
 
+
+//#define FanceyKey
+
+
 namespace proj{
 
 class keyboardKey: public myObj {

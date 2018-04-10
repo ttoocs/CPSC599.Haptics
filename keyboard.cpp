@@ -91,6 +91,8 @@ void keyboard::addMainBlock(){
   double BFStep = (topL.x() - botL.x() )/ (double) numRows;
   double UDStep = (topL.z() - botL.z() )/ (double) numRows;
 
+  LRStep *=1.4; //Fudge, make it span whole keyboard
+
   vec3 pos(topL);
   pos.y(pos.y() -LRStep/2 );
   pos.x(pos.x() -BFStep/2);
@@ -115,17 +117,19 @@ void keyboard::addMainBlock(){
       a.setOrigin(btVector3(pos.x(),pos.y(),pos.z()));
 
 //      /*
-      #define box cmm
       btGeneric6DofSpring2Constraint* spring = new btGeneric6DofSpring2Constraint(\
       *(this->cmm->m_bulletRigidBody),
+  #ifdef FanceyKey
       //*(key->cmm->m_bulletRigidBody),
+  #else
       *(key->box->m_bulletRigidBody),
+  #endif
       a,b);
       
       #define mm(X,Y) X/1000.0, Y/1000.0
-      spring->setLimit(0,mm(-.01,.01));
-      spring->setLimit(1,mm(-.01,.01));
-      spring->setLimit(2,mm(-.01,.01));
+      spring->setLimit(0,mm(-0.01,0.01));
+      spring->setLimit(1,mm(-0.01,0.01));
+      spring->setLimit(2,mm(5,15));
       spring->setLimit(3,0,0);
       spring->setLimit(4,0,0);
       spring->setLimit(5,0,0);
@@ -139,10 +143,10 @@ void keyboard::addMainBlock(){
       }
 
       spring->enableSpring(2, true);
-      spring->setStiffness(2, 10);
+      spring->setStiffness(2, 20000);
       spring->setDamping(2, 2);
 
-      spring->setEquilibriumPoint(2, 1);
+      spring->setEquilibriumPoint(2, 15.0/1000.0);
 
       this->cmm->m_dynamicWorld->m_bulletWorld->addConstraint(spring, true);
 
