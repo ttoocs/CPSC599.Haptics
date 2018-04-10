@@ -10,6 +10,7 @@ chai3d::cHapticDeviceHandler* handler;
 chai3d::cGenericHapticDevicePtr hapticDevice; 
 double toolRadius = 0.006;
 
+int moveCnt = 0;
 vec3 ws_mgmt_dir;
 
 bool forceFeedbackMove = true;
@@ -85,7 +86,12 @@ void toolHapticA(){
         cHapticPoint* interactionPoint = tool->getHapticPoint(0);
 
         //WorkSpace Mgmt:
-//        if(interactionPoint->getNumCollisionEvents() == 0)
+        if(interactionPoint->getNumCollisionEvents() == 0){
+          moveCnt++;
+          if(moveCnt > 100)
+            moveCnt = 100;
+        }
+            
         {
           //Get workspace radius of tool:
 
@@ -110,6 +116,7 @@ void toolHapticA(){
 
             // check primary contact point if available
 //            /*
+            
             for( int i =0 ; i < interactionPoint->getNumCollisionEvents(); i++)
             {
                 cCollisionEvent* collisionEvent = interactionPoint->getCollisionEvent(i);
@@ -117,7 +124,12 @@ void toolHapticA(){
                 //Fix workspace mgmt vectors aganst the one we just hit.
                 //Subtract the projection along the normal (ie, no moment along normal)
                 if((collisionEvent->m_localNormal.x() != 0) || (collisionEvent->m_localNormal.y() != 0) || (collisionEvent->m_localNormal.z() != 0)){
-                  ws_mgmt_dir -= chai3d::cProject( ws_mgmt_dir,  collisionEvent->m_localNormal);
+
+                  if(moveCnt > 0){
+                    moveCnt --;
+                  }else{
+                    ws_mgmt_dir -= chai3d::cProject( ws_mgmt_dir,  collisionEvent->m_localNormal);
+                  }
                 }else{
                   std::cout << "No normal: " << collisionEvent->m_localNormal << std::endl;
                 }
