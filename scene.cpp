@@ -1,5 +1,6 @@
 #include "scene.h"
 
+#include "newkey.h"
 #include "key.h"
 #include "keyboard.h"
 #include "tool.h"
@@ -51,14 +52,17 @@ void init(){
 
   Screen::InitScreen();
 
-  // /*
+  
+//  newKey * test  = new newKey(vec3(0,0,.5));
+
+// /*
   objs.push_back(new keyboard);
   myObj * mouse = new myObj(MOUSEMODEL);
   mouse->cmm->rotateAboutLocalAxisDeg(vec3(0,0,1),180);
 //  mouse->cmm->scale(2,true);
   mouse->cmm->setLocalPos(0,0.5,0);
   objs.push_back(mouse);
-  //*/
+  // */
   world->setGravity(0.0, 0.0,-9.81);
 
   world->setIntegrationSettings(sim::bullet_ts, sim::bullet_maxIter);

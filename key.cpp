@@ -21,7 +21,7 @@ keyboardKey::keyboardKey()
   box->setMaterial(mat0);
 
   box->buildContactTriangles(toolRadius/10);
-  box->setMass(0.01);
+  box->setMass(0.005);
   box->estimateInertia();
   box->buildDynamicModel(8,2+4);
   box->createAABBCollisionDetector(toolRadius); 
