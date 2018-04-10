@@ -10,7 +10,6 @@
 namespace proj {
 namespace scene {
 
-  std::vector<myObj *> objs;
 
   chai3d::cBulletMesh* a; 
   chai3d::cBulletStaticPlane* bulletGround;
@@ -58,12 +57,12 @@ void init(){
 
 // /*
   LeKeyboard = new keyboard;
-  objs.push_back(LeKeyboard);
+  //objs.push_back(LeKeyboard);
   myObj * mouse = new myObj(MOUSEMODEL);
   mouse->cmm->rotateAboutLocalAxisDeg(vec3(0,0,1),180);
 //  mouse->cmm->scale(2,true);
   mouse->cmm->setLocalPos(0,0.5,0);
-  objs.push_back(mouse);
+  //objs.push_back(mouse);
   // */
   world->setGravity(0.0, 0.0,-9.81);
 
@@ -111,7 +110,7 @@ void init(){
 }
 
 void clear(){
-  objs.clear();
+  //objs.clear();
 }
 
 

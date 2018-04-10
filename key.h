@@ -30,6 +30,27 @@ class keyboardKey: public myObj {
   
   void updateKey(double dt);
   static void updateKeys(double dt);
+
+
+  
+  virtual chai3d::cTransform getLocalTransform(){
+    if(cmm != NULL){
+      return cmm->getLocalTransform();
+    }
+    if(box != NULL){
+      return box->getLocalTransform();
+    }
+  }
+
+  virtual void addExternalForceAtPoint(const chai3d::cVector3d& a_force, const chai3d::cVector3d& a_relativePos){
+    if(cmm !=NULL){
+      cmm->addExternalForceAtPoint(a_force,a_relativePos);
+    }
+    if(box !=NULL){
+      box->addExternalForceAtPoint(a_force,a_relativePos);
+    }
+  }
+
 };
 
 

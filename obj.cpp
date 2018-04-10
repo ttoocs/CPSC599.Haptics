@@ -3,8 +3,11 @@
 
 namespace proj{
 
+  std::vector<myObj *> myObj::objs;
+
 myObj::myObj(){
   cmm = new chai3d::cBulletMultiMesh(world);
+  objs.push_back(this);
 }
 // /*
 myObj::myObj(std::string model,bool useFilter, short int filterGroup, short int filterMask, double mass, double sfric, double dfric, bool add) : myObj(){
@@ -70,6 +73,16 @@ void myObj::loadFromFile(std::string model, bool useFilter, short int filterGrou
 void myObj::updatePos(){
   cmm->setLocalPos(pos);
 }
+
+ 
+myObj* myObj::findObj(chai3d::cGenericObject* obj)
+  {
+    for(auto it=objs.begin(); it!=objs.end(); it++){  
+      if((*it)->has( obj))
+        return (*it);
+    }
+    return NULL;
+  }
 
 
 void myObj::change_collision_group(short int collisionFilterGroup, short int collisionFilterMask){

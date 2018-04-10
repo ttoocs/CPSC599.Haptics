@@ -4,6 +4,7 @@
 #include "tool.h"
 #include "types.h"
 #include "sim.h"
+#include "obj.h"
 
 chai3d::cGenericTool* tool;
 chai3d::cHapticDeviceHandler* handler;
@@ -17,6 +18,13 @@ bool forceFeedbackMove = true;
 
 using namespace chai3d;
 using namespace std;
+
+
+proj::myObj * graspObject = NULL;
+cVector3d graspPos;
+cShapeLine* graspLine;
+bool graspActive = false;
+
 void toolInit(){
    
     //Taken from a bullet example.
@@ -68,7 +76,88 @@ void toolInit(){
   
     //addForce = vec3(0,0,0);
     ws_mgmt_dir = vec3(0,0,0);
-    
+
+
+    //grasper:
+    graspLine = new cShapeLine(cVector3d(0,0,0), cVector3d(0,0,0));
+    bulletWorld->addChild(graspLine);
+    graspLine->m_colorPointA.setRed();
+    graspLine->m_colorPointB.setRed();
+    graspLine->setShowEnabled(false);
+
+}
+
+void graspUpdate(){
+      //Basically taken from bullet example 02.
+        if (graspActive)
+        {
+            // check if button pressed
+            if (tool->getUserSwitch(0))
+            {
+                // position grasp point in world coordinates
+                //cVector3d posA = graspObject->getLocalTransform() * graspPos;
+                cVector3d posA = graspObject->getLocalTransform() * graspPos;
+
+                // position of tool
+                cVector3d posB = tool->getHapticPoint(0)->getGlobalPosGoal();
+                
+                // update line
+                graspLine->m_pointA = posA;
+                graspLine->m_pointB = posB;
+                graspLine->setShowEnabled(true);
+
+                // compute force
+                cVector3d force = 5.0 * (posB - posA);
+
+                // apply force
+                graspObject->addExternalForceAtPoint(force, posA - graspObject->getLocalPos());
+
+                // apply reaction force to haptic device
+                tool->addDeviceGlobalForce(-force);
+            }
+            else
+            {
+                graspLine->setShowEnabled(false);
+                graspActive = false;
+                graspObject = NULL;
+            }
+        }
+        else
+        {
+            // get pointer to next interaction point of tool
+            cHapticPoint* interactionPoint = tool->getHapticPoint(0);
+
+            // check primary contact point if available
+            if (interactionPoint->getNumCollisionEvents() > 0)
+            {
+                cCollisionEvent* collisionEvent = interactionPoint->getCollisionEvent(0);
+
+                // given the mesh object we may be touching, we search for its owner which
+                // could be the mesh itself or a multi-mesh object. Once the owner found, we
+                // look for the parent that will point to the ODE object itself.
+                cGenericObject* object = collisionEvent->m_object->getOwner()->getOwner();
+
+                // cast to Bullet object
+//                cBulletGenericObject*  bulletobject = dynamic_cast<cBulletGenericObject*>(object);
+
+                // if ODE object, we apply interaction forces
+                if (object != NULL)
+                {
+
+                    // check if button pressed
+                    if (tool->getUserSwitch(0))
+                    {
+                        graspObject = proj::myObj::findObj(object);
+                        if(graspObject != NULL){
+                          graspPos = collisionEvent->m_localPos;
+                          graspActive = true;
+                        }
+                    }
+                }
+            }
+        }
+
+
 }
 
 
@@ -156,7 +245,7 @@ void toolHapticA(){
                 }else{
                 }
             } // */
-        
+            graspUpdate();        
 }
 
 void toolHapticB(){
@@ -166,8 +255,8 @@ void toolHapticB(){
         }
         tool->setLocalPos(tool->getLocalPos() + ws_mgmt_dir);
 
-        if(tool->getUserSwitch(0)){
-          tool->setLocalPos(0,0,0.1);
+        if(tool->getUserSwitch(1)){
+          tool->setLocalPos(0,0,0.3);
         }
 
         ws_mgmt_dir = 0;
