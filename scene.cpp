@@ -14,7 +14,7 @@ namespace scene {
   chai3d::cBulletMesh* a; 
   chai3d::cBulletStaticPlane* bulletGround;
 
-  chai3d::cBulletSphere* bulletBall0;
+  chai3d::cBulletBox* bulletBall0;
 
   //Screen *s;
 void init(){
@@ -22,21 +22,28 @@ void init(){
   //TEST KEY
 //  objs.push_back(new keyboardKey);
 
-/* ///TEST BALL////////////////
-  bulletBall0 = new chai3d::cBulletSphere(bulletWorld, 0.1);
+// /* ///TEST BALL////////////////
+  bulletBall0 = new chai3d::cBulletBox(bulletWorld, 0.4,0.4,0.4);
   bulletWorld->addChild(bulletBall0);
- 
 
   bulletBall0->m_material->setStiffness(0.5 * 1000);
   bulletBall0->m_material->setDynamicFriction(0.7);
   bulletBall0->m_material->setStaticFriction(1.0);
 
+  bulletBall0->setUseTexture(true);
+  bulletBall0->setTexture(Screen::tex,false);
+  bulletBall0->m_texture = Screen::tex;
 
   bulletBall0->setMass(0.05);
   bulletBall0->estimateInertia();
   bulletBall0->buildDynamicModel();
   bulletBall0->createAABBCollisionDetector(toolRadius);
-*/
+
+  bulletBall0->setLocalPos(-0.5,0,0.2);
+  
+  bulletBall0->rotateAboutLocalAxisDeg(vec3(0,1,0),180);
+  
+// */
 
   
   //s = new Screen();
@@ -84,9 +91,9 @@ void init(){
     matGround.setWhite();
     matGround.m_emission.setGrayLevel(0.3);
 
-    bulletGround->setUseTexture(true);
-    
-    bulletGround->setTexture(Screen::tex);
+//    bulletGround->setUseTexture(true);
+//    bulletGround->setTexture(Screen::tex,false);
+//    bulletGround->m_texture = Screen::tex;
 
     bulletGround->setMaterial(matGround);
 

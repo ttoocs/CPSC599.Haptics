@@ -12,11 +12,11 @@ namespace sim {
 
   void scale(){
     if(freqCounterHaptics.getFrequency() < 500){
-//      haptic_cnt ++;
+      haptic_cnt ++;
       print
     }
     if(freqCounterHaptics.getFrequency() > 900){
-//      haptic_cnt --;
+      haptic_cnt --;
       print
     }
     if(haptic_cnt < 0)
