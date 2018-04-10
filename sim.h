@@ -1,13 +1,15 @@
 #pragma once
 namespace sim {
-  const bool haptic_cMin = false;
-  const bool haptic_Clamp = true;
-  const bool haptic_Div = 1;
+
+  extern bool haptic_cMin;
+  extern bool haptic_Clamp;
+
+  extern double haptic_mul;
 
   extern int haptic_cnt;
 
-  const double bullet_ts = 0.001;
-  const double bullet_maxIter = 20;
+  extern double bullet_ts;
+  extern double bullet_maxIter;
 
   void scale();
 };

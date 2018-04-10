@@ -488,7 +488,7 @@ void updateHaptics(void)
       if(sim::haptic_Clamp)
         timeInterval = cClamp(timeInterval, 0.0001, 0.001);
 
-        bulletWorld->updateDynamics(timeInterval/sim::haptic_Div);
+        bulletWorld->updateDynamics(timeInterval * sim::haptic_mul);
         cnt = 0;
       }
       cnt++;
