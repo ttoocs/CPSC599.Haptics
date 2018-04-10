@@ -19,6 +19,7 @@ namespace scene {
   //Screen *s;
 void init(){
 
+  tool->setLocalPos(0,0,0.5);
   //TEST KEY
 //  objs.push_back(new keyboardKey);
 
