@@ -98,72 +98,17 @@ static uint32_t get(rfbClient *cl, int x, int y)
 
 
 void update(rfbClient* client, int x, int y, int w, int h){
-//    std::cout << "(" << x << "," << y << "," << w << "," << h << ")" << std::endl;
 
-//  std::cout << "VNC UPDATE" << std::endl;
-    rfbPixelFormat* pf=&client->format;
-//    PrintPixelFormat (pf);
-//    32 bits per pixel.
-//    Least significant byte first in each pixel.
-//    TRUE colour: max red 255 green 255 blue 255, shift red 0 green 8 blue 16
-
-      //Manual stuffs
-    //unsigned char* d = img.getData();
-   
-    int bpp=pf->bitsPerPixel/8;
-    int row_stride=client->width*bpp;
-    int ix=0;
-    int iy=0;
-// /*
-//    for(ix=x; ix < w; ix++){
-//      for(iy=y; iy < h; iy++){ 
-// */
-
-//    #pragma omp parallel for
- /*
-//    for(int j=0;j<client->height*row_stride;j+=row_stride){
-//      for(int i=0;i<client->width*bpp;i+=bpp) {
-        int j = client->height*row_stride*y;
-        int i = bpp*x;
-//        uint32_t p = get(client, ix,iy);
-//        std::cout << "p: \t" << p << std::endl;
-        unsigned char* p=client->frameBuffer+j+i;
-                        unsigned int v;
-                        if(bpp==4)
-                                v=*(unsigned int*)p;
-                        else if(bpp==2)
-                                v=*(unsigned short*)p;
-                        else
-                                v=*(unsigned char*)p;
-        
-        GLubyte R = (v>>pf->redShift)*256/(pf->redMax+1);
-        GLubyte G = (v>>pf->greenShift)*256/(pf->greenMax+1);
-        GLubyte B = (v>>pf->blueShift)*256/(pf->blueMax+1);
-
-// */
-//        R /=256;
-//        G /=256;
-//        B /=256;
-        
-//        chai3d::cColorb c = chai3d::cColorb(chai3d::cColorBtoF(R),chai3d::cColorBtoF(G),chai3d::cColorBtoF(B));
-//          int offset = y*row_stride + x;
-//          GLubyte r = *(client->frameBuffer+offset);
-//          GLubyte g = *(client->frameBuffer+offset + 1);
-//          GLubyte b = *(client->frameBuffer+offset + 2);
-
-//          chai3d::cColorb c =chai3d::cColorb(r,g,b);
-//          chai3d::cColorb c = chai3d::cColorb(255,0,0); 
-//          std::cout << "(" << R << "," << G << "," << B << ")" << std::endl;
-//        unsigned char * d = img->getData();
-//        d[x + y*img->getHeight()] = 0xff;
-//        img->setPixelColor(ix,iy,c);
-//        ix++;
-//      }
-//    iy++;
-//  }
   int bytesPerPixel = client->format.bitsPerPixel / 8;
   img->setData(client->frameBuffer, client->width * bytesPerPixel * client->height, false);
-  //std::cout << img->getWidth() << std::endl;
+//  std::cout << img->getFormat() << "," << img->getType()  << std::endl;
+    //6408,5121
+  if(img->getWidth() == 0){
+    std::cout << "VNC resolution diff. " << std::endl;
+//    img->setProperties(client->width, client->height, img->getFormat(), img->getType());
+//    img->setProperties(client->width, client->height, GL_RGBA, GL_UNSIGNED_INT);//GL_UNSIGNED_INT);
+ //   img->setData(client->frameBuffer, client->width * bytesPerPixel * client->height, false);
+  }
   tex->setImage(img);
 }
 
@@ -217,7 +162,7 @@ void InitScreen(){
   
   tex->loadFromFile("/tmp/pic.png");
   img = tex->m_image;
- img->convert(GL_RGBA);
+  img->convert(GL_RGBA);
  
 
 //  std::cout << client->width << "," <<  client->height << std::endl; //Img size OK
