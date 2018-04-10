@@ -38,7 +38,7 @@ bool fullscreen = false;
 // mirrored display
 bool mirroredDisplay = false;
 
-#define SPOTLIGHT
+//#define SPOTLIGHT
 
 //------------------------------------------------------------------------------
 // DECLARED VARIABLES
@@ -265,11 +265,13 @@ int main(int argc, char* argv[])
     light->setEnabled(true);
   
     // define direction of light beam
-    light->setDir(-1.0, 0.0, -0.6); 
 
-    light->setLocalPos(vec3(0.5,0,0.4)*2);
+    light->setDir(-1.0, 0.0, -0.3); 
+    light->setLocalPos(vec3(1,0,0.2));
 
     #ifdef SPOTLIGHT
+    light->setLocalPos(vec3(0.5,0,0.4)*2);
+    light->setDir(-1.0, 0.0, -0.6); 
     light->setShadowMapEnabled(true);
     light->m_shadowMap->setQualityLow();
 
