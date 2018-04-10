@@ -26,7 +26,7 @@ void init(){
 //  objs.push_back(new keyboardKey);
 
 // /* ///TEST BALL////////////////
-  bulletBall0 = new chai3d::cBulletBox(bulletWorld, 0.4,0.4,0.4);
+  bulletBall0 = new chai3d::cBulletBox(bulletWorld, 0.8,0.8,0.8);
   bulletWorld->addChild(bulletBall0);
 
   bulletBall0->m_material->setStiffness(0.5 * 1000);
@@ -42,7 +42,7 @@ void init(){
   bulletBall0->buildDynamicModel();
   bulletBall0->createAABBCollisionDetector(toolRadius);
 
-  bulletBall0->setLocalPos(-0.5,0,0.2);
+  bulletBall0->setLocalPos(-0.5,0,0.4);
   
   bulletBall0->rotateAboutLocalAxisDeg(vec3(0,1,0),180);
 

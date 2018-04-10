@@ -1,11 +1,11 @@
 #pragma once
 
-#define r5_c12
-
+//#define r5_c15
+#define red
 
 #define c(X,Y)  case X : return Y ; break;
 
-#ifdef r5_c12
+#ifdef r5_c15
 
 char getKey(int r, int c){
   int id = r*100 + c;
@@ -83,3 +83,71 @@ char getKey(int r, int c){
 
 
 #endif
+
+
+#ifdef red
+
+char getKey(int r, int c){
+  int id = r*100 + c;
+  switch (id) {
+    c(0 , '1' )
+    c(1 , '2' )
+    c(2 , '3' )
+    c(3 , '4' )
+    c(4 , '5' )
+    c(5 , '6' )
+    c(6 , '7' )
+    c(7 , '8' )
+    c(8 , '9' )
+    c(9 , '0' )
+
+    c(100 , 'q' )
+    c(101 , 'w' )
+    c(102 , 'e' )
+    c(103 , 'r' )
+    c(104 , 't' )
+    c(105 , 'y' )
+    c(106 , 'u' )
+    c(107 , 'i' )
+    c(108 , 'o' )
+    c(109 , 'p' )
+    
+    
+    c(200 , 'a' )
+    c(201 , 's' )
+    c(202 , 'd' )
+    c(203 , 'f' )
+    c(204 , 'a' )
+    c(205 , 'h' )
+    c(206 , 'j' )
+    c(207 , 'k' )
+    c(208 , 'l' )
+    c(209 , ';' )
+
+    c(300 , 'z' )
+    c(301 , 'x' )
+    c(302 , 'c' )
+    c(303 , 'v' )
+    c(304 , 'b' )
+    c(305 , 'n' )
+    c(306 , 'm' )
+    c(307 , '\n' )
+    c(308 ,  2 )
+    c(309 ,  3 )
+
+    c(401 , ' ')
+    c(402 , ' ')
+    c(403 , ' ')
+    c(404 , ' ')
+    c(405 , ' ')
+    c(406 , ' ')
+    c(407 , ' ')
+    c(408 , ' ')
+    c(409 , ' ')
+    default: return 0 ; break;
+}
+}
+
+
+#endif
+

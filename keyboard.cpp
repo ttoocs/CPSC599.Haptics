@@ -86,10 +86,14 @@ void keyboard::addMainBlock(){
   botL/=100.0;
 
 
-//  int numRows = 5;
-//  int numCols = 15;
+  #ifdef r5_c15
+  int numRows = 5;
+  int numCols = 15;
+  #endif
+  #ifdef red
   int numRows =5;
-  int numCols =15;
+  int numCols =10;
+  #endif
 
   double LRStep = (topL.y() - topR.y() )/ (double) numCols;
   double BFStep = (topL.x() - botL.x() )/ (double) numRows;

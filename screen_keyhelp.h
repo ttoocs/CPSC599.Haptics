@@ -1,11 +1,11 @@
 #pragma once
 
-#define r5_c12
+#define r5_c15
 
 //Note: this has been swapped:
 #define c(Y,X)  case X : return Y ; break;
 
-#ifdef r5_c12
+#ifdef r5_c15
 
 rfbKeySym getKey(char c){
   switch (c) {
@@ -66,6 +66,9 @@ rfbKeySym getKey(char c){
 //    c(310 , '/' )
 
     c(XK_KP_Space, ' ')
+
+    c(XK_Escape, 2)
+    c(XK_Caps_Lock,3)
 
     default: return XK_VoidSymbol ; break;
 }
