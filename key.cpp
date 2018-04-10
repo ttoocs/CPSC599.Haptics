@@ -73,7 +73,7 @@ btVector3 keyboardKey::updateKey(double dt){
     std::cout << "sending key: " << pushedKey << std::endl;
     Screen::sendKey(pushedKey);
   }
-  diff *= 500;
+  diff *= 1000;
   
   diff = btDot(diff,up)/(btDot(up,up)) * up;
 
