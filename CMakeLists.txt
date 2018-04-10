@@ -140,7 +140,8 @@ endif ()
 #Setup Model defines.
 #obviously, this is awful for more models, but alas.
 get_filename_component(keyModelPath key.3ds REALPATH)
-get_filename_component(keyBoardModelPath keyboard.3ds REALPATH)
+#get_filename_component(keyBoardModelPath keyboard.3ds REALPATH)
+get_filename_component(keyBoardModelPath keyboard_simple.3ds REALPATH)
 get_filename_component(mouseModelPath mouse.3ds REALPATH)
 
 add_definitions (-DKEYMODEL="${keyModelPath}")
