@@ -16,8 +16,8 @@ keyboardKey::keyboardKey()
   chai3d::cMaterial mat0; 
   mat0.setRedIndian();
   mat0.setStiffness(2 * 1000);
-  mat0.setDynamicFriction(0.6);
-  mat0.setStaticFriction(0.6);
+  mat0.setDynamicFriction(6.0);
+  mat0.setStaticFriction(6.0);
   box->setMaterial(mat0);
 
   box->buildContactTriangles(toolRadius/10);

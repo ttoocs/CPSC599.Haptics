@@ -127,9 +127,9 @@ void keyboard::addMainBlock(){
       a,b);
       
       #define mm(X,Y) X/1000.0, Y/1000.0
-      spring->setLimit(0,mm(-0.01,0.01));
-      spring->setLimit(1,mm(-0.01,0.01));
-      spring->setLimit(2,mm(5,15));
+      spring->setLimit(0,mm(-0.1,0.1));
+      spring->setLimit(1,mm(-0.1,0.1));
+      spring->setLimit(2,mm(0,50));
       spring->setLimit(3,0,0);
       spring->setLimit(4,0,0);
       spring->setLimit(5,0,0);
