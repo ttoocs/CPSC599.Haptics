@@ -121,7 +121,7 @@ void check(){
   if(!connected)
     return;
   if(cnt > 0){
-    SendFramebufferUpdateRequest (client, 0, 0, client->width, client->height, FALSE);
+//    SendFramebufferUpdateRequest (client, 0, 0, client->width, client->height, FALSE);
     WaitForMessage(client,1);
     HandleRFBServerMessage(client);
     cnt = 0;
@@ -139,6 +139,7 @@ void InitScreen(){
   int row_stride=client->width*bpp;
 
   strcpy(client->serverHost, std::string("localhost").c_str());
+  //strcpy(client->serverHost, std::string("10.13.95.74").c_str());
   client->serverPort = 5900;
 
 //    rfbInitConnection(client)

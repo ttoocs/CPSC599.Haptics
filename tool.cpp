@@ -53,7 +53,8 @@ void toolInit(){
     tool->start();
 
     // map the physical workspace of the haptic device to a larger virtual workspace.
-    //tool->setWorkspaceRadius(0.8);
+
+//    tool->setWorkspaceRadius(0.25);
 
     // define a radius for the tool (graphical display)
     tool->setRadius(toolRadius, toolRadius);
@@ -177,9 +178,9 @@ void toolHapticA(){
 
         //WorkSpace Mgmt:
         if(interactionPoint->getNumCollisionEvents() == 0){
-          moveCnt++;
-          if(moveCnt > 100)
-            moveCnt = 100;
+          moveCnt = 100;
+          if(moveCnt > 1000)
+            moveCnt = 1000;
         }
             
         {
@@ -255,6 +256,7 @@ void toolHapticB(){
           tool->addDeviceLocalForce(addForce);
         }
         tool->setLocalPos(tool->getLocalPos() + ws_mgmt_dir);
+//      tool->setLocalPos(tool->getLocalPos() + ws_mgmt_dir);
 
         if(tool->getUserSwitch(1)){
           tool->setLocalPos(0,0,0.3);

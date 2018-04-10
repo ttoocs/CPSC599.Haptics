@@ -26,7 +26,7 @@ void init(){
 //  objs.push_back(new keyboardKey);
 
 // /* ///TEST BALL////////////////
-  bulletBall0 = new chai3d::cBulletBox(bulletWorld, 0.8,0.8,0.8);
+  bulletBall0 = new chai3d::cBulletBox(bulletWorld, 0.5,0.5,0.5);
   bulletWorld->addChild(bulletBall0);
 
   bulletBall0->m_material->setStiffness(0.5 * 1000);
