@@ -23,32 +23,39 @@ void myObj::loadFromFile(std::string model, bool useFilter, short int filterGrou
   //cmm->createAABBCollisionDetector(toolRadius);
   //cmm->computeBTN();
 
-  chai3d::cBulletMesh* mesh = (chai3d::cBulletMesh*) cmm->getMesh(0);
+  chai3d::cBulletMesh* mesh;
+  /*
+  mesh = (chai3d::cBulletMesh*)  cmm->getMesh(0);
   
   if(mesh == NULL){
-    std::cout << "Loaded mesh from: " << model << " was null, IE: The key model wasn't loaded. Segfault imminent." << std::endl;
+    std::cout << "Loaded mesh from: " << model << " was null, IE: The model wasn't loaded. Segfault imminent." << std::endl;
   }
+  */
 
-  mesh->m_material = chai3d::cMaterial::create();
-//  mesh->m_material->setUseHapticShading(true);
   cmm->setStiffness(2000.0, true);
 
-  cmm->setMass(mass);
   cmm->buildContactTriangles(toolRadius/10);
+
+  cmm->setMass(mass);
   cmm->estimateInertia();
+
   if(useFilter){
     cmm->buildDynamicModel(filterGroup, filterMask);
-  }else
+  }else{
     cmm->buildDynamicModel();
+  }
   cmm->createAABBCollisionDetector(toolRadius);
   
-
   for(int i = 0; i < 10; i++){
     mesh = (chai3d::cBulletMesh*) cmm->getMesh(i);
 
     if(mesh == NULL)
       continue;
 
+//    mesh->setMass(mass);
+//    mesh->estimateInertia();
+
+    mesh->m_material = chai3d::cMaterial::create();
     mesh->m_material->setGraySlate();
     mesh->m_material->setStiffness(0.5 * 1000); //1000 being maxForce
     mesh->m_material->setDynamicFriction(dfric);
