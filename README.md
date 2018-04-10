@@ -1,2 +1,1 @@
-#TODO:
-  * The most practical VNC ever. - Halfway there, just need to pass-through keys.
+# The most practical VNC ever.

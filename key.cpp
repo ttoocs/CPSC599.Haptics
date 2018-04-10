@@ -69,7 +69,7 @@ btVector3 keyboardKey::updateKey(double dt){
   
   diff -=  rb->getCenterOfMassTransform().getOrigin();
 
-  if(diff.z() < -0.01){
+  if(diff.z() > 0.009){
     std::cout << "sending key: " << pushedKey << std::endl;
     Screen::sendKey(pushedKey);
   }
