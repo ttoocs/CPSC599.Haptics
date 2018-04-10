@@ -154,6 +154,10 @@ void toolHapticB(){
         }
         tool->setLocalPos(tool->getLocalPos() + ws_mgmt_dir);
 
+        if(tool->getUserSwitch(0)){
+          tool->setLocalPos(0,0,0.1);
+        }
+
         ws_mgmt_dir = 0;
           // send forces to haptic device
         tool->applyToDevice();
