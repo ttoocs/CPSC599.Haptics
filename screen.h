@@ -10,6 +10,9 @@ namespace Screen{
   extern void InitScreen();
 
   extern void check();
+
+
+  extern void sendKey(char c);
 };
 
 

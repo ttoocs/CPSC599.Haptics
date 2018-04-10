@@ -1,5 +1,6 @@
 #include "keyboard.h"
 #include "key.h"
+#include "key_keyhelp.h"
 
 namespace proj{
 
@@ -162,6 +163,9 @@ void keyboard::addMainBlock(){
       // */
       pos.y(pos.y() - LRStep);
 //      return;
+
+      key->pushedKey = getKey(row,col);
+      std::cout << "Key: " << key->pushedKey << std::endl;
 
     }
     pos.y(topL.y() - LRStep/2);

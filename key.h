@@ -16,6 +16,8 @@ class keyboardKey: public myObj {
   keyboardKey();
   virtual ~keyboardKey();
 
+  char pushedKey = 0x00;
+
   chai3d::cBulletBox * box = NULL;
 
   virtual void updatePos(vec3 pos);

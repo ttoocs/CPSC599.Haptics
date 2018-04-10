@@ -7,6 +7,8 @@
 
 #include <string>
 
+#include "screen_keyhelp.h"
+
 //#include "gl_helpers.h"
 
 extern int argc_p;
@@ -174,6 +176,12 @@ void InitScreen(){
   
   
 }
+
+void sendKey(char c){
+  SendKeyEvent(client, getKey(c), true); 
+  SendKeyEvent(client, getKey(c), false); 
+}
+
 
 
 };

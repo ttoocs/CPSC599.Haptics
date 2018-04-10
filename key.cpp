@@ -2,6 +2,8 @@
 #include "obj.h"
 #include "key.h"
 #include "scene.h"
+#include "screen.h"
+
 
 namespace proj{
 
@@ -66,6 +68,11 @@ btVector3 keyboardKey::updateKey(double dt){
   diff += rot*offset;
   
   diff -=  rb->getCenterOfMassTransform().getOrigin();
+
+  if(diff.z() < -0.01){
+    std::cout << "sending key: " << pushedKey << std::endl;
+    Screen::sendKey(pushedKey);
+  }
   diff *= 500;
   
   diff = btDot(diff,up)/(btDot(up,up)) * up;
