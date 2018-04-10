@@ -154,7 +154,7 @@ include_directories( ${VNCINC})
 find_library(VNCCLI vncclient)
 
 # target executable
-add_executable (${PROJECT_NAME} application.cpp key.cpp obj.cpp scene.cpp keyboard.cpp types.cpp input.cpp tool.cpp sim.cpp screen.cpp)
+add_executable (${PROJECT_NAME} application.cpp key.cpp obj.cpp scene.cpp keyboard.cpp types.cpp input.cpp tool.cpp sim.cpp screen.cpp newkey.cpp)
 target_link_libraries (${PROJECT_NAME} ${CHAI3D_LIBRARIES} ${GLFW_LIBRARIES} ${LIBVNCSERVER_DIR} ${COMMON_DIR} ${LIBVNCCLIENT_DIR} ${VNCCLI})
 
 # OS specific adjustments
