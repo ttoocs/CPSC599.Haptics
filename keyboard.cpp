@@ -84,6 +84,7 @@ void keyboard::addMainBlock(){
   topR/=100.0;
   botL/=100.0;
 
+
 //  int numRows = 5;
 //  int numCols = 15;
   int numRows =1;
@@ -94,6 +95,7 @@ void keyboard::addMainBlock(){
   double UDStep = (topL.z() - botL.z() )/ (double) numRows;
 
   LRStep *=1.4; //Fudge, make it span whole keyboard
+
 
   vec3 pos(topL);
   pos.y(pos.y() -LRStep/2 );
@@ -128,10 +130,13 @@ void keyboard::addMainBlock(){
   #endif
       a,b);
       
+      key->offset = btVector3(pos.x(),pos.y(),pos.z()+0.045);
+      
+
       #define mm(X,Y) X/1000.0, Y/1000.0
       spring->setLimit(0,mm(-0.1,0.1));
       spring->setLimit(1,mm(-0.1,0.1));
-      spring->setLimit(2,mm(10,50));
+      spring->setLimit(2,mm(25,50));
       spring->setLimit(3,0,0);
       spring->setLimit(4,0,0);
       spring->setLimit(5,0,0);
@@ -149,7 +154,7 @@ void keyboard::addMainBlock(){
 //      spring->setDamping(2, 10);
 
 //      spring->setEquilibriumPoint(2, 30/1000.0);
-
+      
       this->cmm->m_dynamicWorld->m_bulletWorld->addConstraint(spring, true);
 
       // */
