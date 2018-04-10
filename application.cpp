@@ -38,6 +38,7 @@ bool fullscreen = false;
 // mirrored display
 bool mirroredDisplay = false;
 
+#define SPOTLIGHT
 
 //------------------------------------------------------------------------------
 // DECLARED VARIABLES
@@ -52,8 +53,11 @@ cCamera* camera;
 cMultiMesh * obj;
 
 // a light source to illuminate the objects in the world
-cDirectionalLight *light;
-
+#ifdef SPOTLIGHT
+  cSpotLight *light;
+#else
+  cDirectionalLight *light;
+#endif
 // a haptic device handler
 //cHapticDeviceHandler* handler;
 
@@ -246,18 +250,30 @@ int main(int argc, char* argv[])
     // set vertical mirrored display mode
     camera->setMirrorVertical(mirroredDisplay);
 
+    #ifdef SPOTLIGHT
+    
+    light = new cSpotLight(world);
+    #else
     // create a directional light source
     light = new cDirectionalLight(world);
+    #endif
 
     // insert light source inside world
     world->addChild(light);
 
     // enable light source
     light->setEnabled(true);
-
+  
     // define direction of light beam
-    light->setDir(-1.0, 0.0, 0.0); 
+    light->setDir(-1.0, 0.0, -0.6); 
 
+    light->setLocalPos(vec3(0.5,0,0.4)*2);
+
+    #ifdef SPOTLIGHT
+    light->setShadowMapEnabled(true);
+    light->m_shadowMap->setQualityLow();
+
+    #endif
     // create a sphere (cursor) to represent the haptic device
 //    cursor = new cShapeSphere(0.01);
 
