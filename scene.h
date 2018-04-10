@@ -1,5 +1,6 @@
 #include "types.h"
 #include "obj.h"
+#include "keyboard.h"
 
 namespace proj {
 namespace scene {
@@ -8,6 +9,7 @@ namespace scene {
 
 //  init(int Scene){ scene=Scene;}
   extern std::vector<myObj *> objs;
+  extern keyboard * LeKeyboard;
 
   void init();
   void clean();  

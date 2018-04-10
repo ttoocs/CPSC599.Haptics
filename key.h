@@ -5,7 +5,7 @@
 
 
 //#define FanceyKey
-
+#include <vector>
 
 namespace proj{
 
@@ -20,6 +20,16 @@ class keyboardKey: public myObj {
 
   virtual void updatePos(vec3 pos);
   virtual void updatePos();
+
+  btVector3 offset = btVector3(0,0,0);
+  btVector3 accel = btVector3(0,0,0);
+
+  btRigidBody * rb = NULL;
+
+  static std::vector<keyboardKey *> keys;
+  
+  void updateKey(double dt);
+  static void updateKeys(double dt);
 };
 
 

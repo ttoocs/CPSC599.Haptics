@@ -4,7 +4,7 @@
 namespace proj{
 
 
-keyboard::keyboard() : myObj(KEYBOARDMODEL,true,1+4,1+2+4+8,1){
+keyboard::keyboard() : myObj(KEYBOARDMODEL,true,1+4,1+2+4+8,0){
 
 /*
 cmm = new chai3d::cBulletMultiMesh(world);
@@ -84,8 +84,10 @@ void keyboard::addMainBlock(){
   topR/=100.0;
   botL/=100.0;
 
-  int numRows = 5;
-  int numCols = 15;
+//  int numRows = 5;
+//  int numCols = 15;
+  int numRows =1;
+  int numCols =1;
 
   double LRStep = (topL.y() - topR.y() )/ (double) numCols;
   double BFStep = (topL.x() - botL.x() )/ (double) numRows;
@@ -129,7 +131,7 @@ void keyboard::addMainBlock(){
       #define mm(X,Y) X/1000.0, Y/1000.0
       spring->setLimit(0,mm(-0.1,0.1));
       spring->setLimit(1,mm(-0.1,0.1));
-      spring->setLimit(2,mm(0,50));
+      spring->setLimit(2,mm(10,50));
       spring->setLimit(3,0,0);
       spring->setLimit(4,0,0);
       spring->setLimit(5,0,0);
@@ -142,11 +144,11 @@ void keyboard::addMainBlock(){
         spring->setEquilibriumPoint(i, 0);
       }
 
-      spring->enableSpring(2, true);
-      spring->setStiffness(2, 20000);
-      spring->setDamping(2, 2);
+//      spring->enableSpring(2, true);
+//      spring->setStiffness(2, 20000,false);
+//      spring->setDamping(2, 10);
 
-      spring->setEquilibriumPoint(2, 15.0/1000.0);
+//      spring->setEquilibriumPoint(2, 30/1000.0);
 
       this->cmm->m_dynamicWorld->m_bulletWorld->addConstraint(spring, true);
 

@@ -14,6 +14,8 @@
 #include "tool.h"
 #include "sim.h"
 #include "screen.h"
+#include "key.h"
+
 //------------------------------------------------------------------------------
 using namespace chai3d;
 using namespace std;
@@ -500,6 +502,8 @@ void updateHaptics(void)
       // restart the simulation clock
       hclock.reset();
       hclock.start();
+
+      proj::keyboardKey::updateKeys(timeInterval);
 
       if(sim::haptic_cMin)
         timeInterval = chai3d::cMin(0.001,timeInterval);

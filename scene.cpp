@@ -16,6 +16,7 @@ namespace scene {
   chai3d::cBulletStaticPlane* bulletGround;
 
   chai3d::cBulletBox* bulletBall0;
+  keyboard * LeKeyboard;
 
   //Screen *s;
 void init(){
@@ -56,7 +57,8 @@ void init(){
 //  newKey * test  = new newKey(vec3(0,0,.5));
 
 // /*
-  objs.push_back(new keyboard);
+  LeKeyboard = new keyboard;
+  objs.push_back(LeKeyboard);
   myObj * mouse = new myObj(MOUSEMODEL);
   mouse->cmm->rotateAboutLocalAxisDeg(vec3(0,0,1),180);
 //  mouse->cmm->scale(2,true);

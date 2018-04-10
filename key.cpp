@@ -1,9 +1,11 @@
 #include "tool.h"
 #include "obj.h"
 #include "key.h"
+#include "scene.h"
 
 namespace proj{
 
+std::vector<keyboardKey *> keyboardKey::keys; 
 
 keyboardKey::keyboardKey() 
 #ifdef FanceyKey
@@ -26,7 +28,12 @@ keyboardKey::keyboardKey()
   box->buildDynamicModel(8,2+4);
   box->createAABBCollisionDetector(toolRadius); 
 
-  world->addChild(box); 
+  world->addChild(box);
+
+  rb = box->m_bulletRigidBody;
+  rb->setGravity(btVector3(0,0,0));
+
+  keys.push_back(this);
   // */
 }
 
@@ -44,7 +51,46 @@ void keyboardKey::updatePos(){
 }
 
 keyboardKey::~keyboardKey(){
+//  keys.erase(this);
+}
 
+void keyboardKey::updateKey(double dt){
+  btVector3 vel = rb->getLinearVelocity();
+  accel = btVector3(0,0,0);
+  btTransform tran =  proj::scene::LeKeyboard->cmm->m_bulletRigidBody->getCenterOfMassTransform();
+  btMatrix3x3 rot = tran.getBasis(); //m_basis;
+
+  btVector3 up = rot*btVector3(0,0,1);
+
+  btVector3 diff = tran.getOrigin();
+  diff += offset;
+  
+  diff -=  rb->getCenterOfMassTransform().getOrigin();
+  diff *= 1000;
+  
+  diff = btDot(diff,up)/(btDot(up,up)) * up;
+
+  accel += diff;
+
+
+#ifdef CalcForce
+  //Apply forces:
+  accel /= this->box->getMass();
+
+  vel += accel*dt;
+  btVector3 pos = rb->getCenterOfMassTransform().getOrigin() + vel*dt;
+
+  rb->setLinearVelocity(vel);
+  this->updatePos(vec3(pos.x(),pos.y(),pos.z()));
+#else
+  rb->applyCentralForce(accel);
+#endif
+}
+
+void keyboardKey::updateKeys(double dt){
+  for(auto it = keys.begin(); it != keys.end(); it++){
+    (*it)->updateKey(dt);
+  }
 }
 
 };
