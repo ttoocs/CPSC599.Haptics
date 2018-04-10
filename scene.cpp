@@ -6,6 +6,7 @@
 #include "tool.h"
 #include "sim.h"
 #include "screen.h"
+#include "boxObj.h"
 
 namespace proj {
 namespace scene {
@@ -44,7 +45,8 @@ void init(){
   bulletBall0->setLocalPos(-0.5,0,0.2);
   
   bulletBall0->rotateAboutLocalAxisDeg(vec3(0,1,0),180);
-  
+
+  new boxObj(bulletBall0);
 // */
 
   

@@ -9,6 +9,13 @@ myObj::myObj(){
   cmm = new chai3d::cBulletMultiMesh(world);
   objs.push_back(this);
 }
+
+myObj::myObj(void * thing){
+  std::cout << "Not Safe, to push a thing in an object like so.." << std::endl;
+  cmm = (chai3d::cBulletMultiMesh *) thing;
+  objs.push_back(this);
+}
+
 // /*
 myObj::myObj(std::string model,bool useFilter, short int filterGroup, short int filterMask, double mass, double sfric, double dfric, bool add) : myObj(){
   this->loadFromFile(model,useFilter,filterGroup,filterMask,mass,sfric,dfric,add);

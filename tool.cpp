@@ -149,6 +149,7 @@ void graspUpdate(){
                     {
                         graspObject = proj::myObj::findObj(object);
                         if(graspObject != NULL){
+      std::cout << "obj found" << std::endl;
                           graspPos = collisionEvent->m_localPos;
                           graspActive = true;
                         }

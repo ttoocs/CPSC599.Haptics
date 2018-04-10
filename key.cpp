@@ -63,7 +63,7 @@ void keyboardKey::updateKey(double dt){
   btVector3 up = rot*btVector3(0,0,1);
 
   btVector3 diff = tran.getOrigin();
-  diff += offset;
+  diff += rot*offset;
   
   diff -=  rb->getCenterOfMassTransform().getOrigin();
   diff *= 1000;
