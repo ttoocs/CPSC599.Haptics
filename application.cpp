@@ -40,7 +40,7 @@ bool fullscreen = false;
 // mirrored display
 bool mirroredDisplay = false;
 
-//#define SPOTLIGHT
+// #define SPOTLIGHT
 
 //------------------------------------------------------------------------------
 // DECLARED VARIABLES
@@ -275,7 +275,7 @@ int main(int argc, char* argv[])
     light->setLocalPos(vec3(0.5,0,0.4)*2);
     light->setDir(-1.0, 0.0, -0.6); 
     light->setShadowMapEnabled(true);
-    light->m_shadowMap->setQualityLow();
+    light->m_shadowMap->setQualityMedium();
 
     #endif
     // create a sphere (cursor) to represent the haptic device
