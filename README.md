@@ -1,5 +1,7 @@
 # The most practical VNC ever.
 
+![You can make QWOP harder!](https://github.com/ttoocs/CPSC599.Haptics/raw/Proj/QWOP.png)
+![Attempt to do word processing](https://github.com/ttoocs/CPSC599.Haptics/raw/Proj/WordProcessing.png)
 
 #Introduction
 The goal of this project is to simulate the good old touch and feel of a computer, but through a haptic device. To accomplish this, it is a VNC client. Thus, any mundane regular task that could be completed in a few minutes, can now span a few hours of trying to get your input in over the lag of VNC, and a not-so-great keyboard... and a mouse that's just for looks.
