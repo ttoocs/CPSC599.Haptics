@@ -1,34 +1,10 @@
 # The most practical VNC ever.
 
 
-For those who wish to have a haptic interface for their remote sessions, I offer this, a Haptic-Enabled, VNC Client.
-
-This client offers only some the features that someone would want for a VNC client, for example, there is no identification on the keys what-so-ever. However, the keys will never get dirty, and come in a vibrant Red Indian. They also have a smooth motion, while being affixed to the keyboard, which one can move around in any manner they please.
-
 #Introduction
-The goal of this project was to accurately model the haptic interface that people experience on a daily basis while working on computers.
-
-The common issue involved with haptics is that of speed, which is the major issue encountered in this project.
-
-#Methods
-
-This project was mainly accomplished using the chai3d library, with it's bullet module, and the VNC-component was done via libvnc.
-
-The main issue involved is the real time run speed, and the complexity of having so many small objects to that can interact closely packed together. The Bullet Physics engine used here is a 'real time' engine by most standards, as it tends to run at ~60Hz. However, haptics requires 1000Hz, and hence, this was pushing the engine to the limit for this project. Patching chai3d to enable more configuration of the bullet-engine allowed a significant improvement in speed. Furthermore reducing the quality of the models gives significant improvements.
-
-#Results
-
-The end result is a rather impractical VNC client, where one needs haptic-hardware to allow one to interact with it. It's also rather power-hungry for a VNC client. But it does have key input, and can display the VNC server's images, and has decent haptic effects.
-In terms of haptics, due to the ability to 'scale' time due to a separated physics engine, it's possible to maintain a high-haptic rate. As Bullet has some level of object-interpolation, this lets the haptic systems still feel realistic and smooth. However, the physics of the objects can be noticeably slowed down in some cases, effectively being in slow-motion.
-
-I do wish I could get a haptic signal/feedback played back through the device to emulate the clicks of the device, however with multiple keys this stops being feasibly, as the mass and momentum become predominantly noticeable when the simulation slows down.
-
-
-
-#Intro2
 The goal of this project is to simulate the good old touch and feel of a computer, but through a haptic device. To accomplish this, it is a VNC client. Thus, any mundane regular task that could be completed in a few minutes, can now span a few hours of trying to get your input in over the lag of VNC, and a not-so-great keyboard... and a mouse that's just for looks.
 
-As with most things in Haptics, the speed of thie simulation is, in large part, the hardest part. For this particular case with 50 or 75 keys (which is reduced from a normal keyboard), this is a rather taxing set of collisions to perform a thousand times a second. Especially so if one wants more complex interactions, which were simply forgiven due to already taxing the underlying system.
+As with most things in Haptics, the speed of the simulation is, in large part, the hardest part. For this particular case with 50 or 75 keys (which is reduced from a normal keyboard), this is a rather taxing set of collisions to perform a thousand times a second. Especially so if one wants more complex interactions, which were simply forgiven due to already taxing the underlying system.
 
 #Methods
 
@@ -46,3 +22,11 @@ This however requires the Bullet Library to update more frequently than it can a
 The end result is a rather impractical VNC client, but a functional one. The haptic feedback is consistently smooth and stable, and one is able to type on the remote system for whatever purposes they want. Including losing horribly at video games.
 
 
+
+
+#Compiling:
+
+This entire git is supposed to be in a sub folder in the chai3d directory, due to that being the common way we did all our assignments.
+
+Note: There is a patch applied to the chai3d bullet module, enabling the pass through of collision masks. So if obj.cpp is complaining of not finding the right function you know why. Forcing the if statement there and disabling commenting out the pass through may fix this, but there will be a performance loss.
+Alternatively, I do have my modifications of chai3d provided in my fork of the git: https://github.com/ttoocs/chai3d
